@@ -16,7 +16,7 @@ export function Login(formdata) {
   const url = '/Login'
   return axios({
     method: 'post',
-    url: SecrectAPI + url,
+    url:  url,
     data: data
   }).then((res) => {
     return Promise.resolve(res.data)
@@ -33,7 +33,7 @@ export function UpdateUserInfor(formdata) {
   const url = '/UpdateUserInfor'
   return axios({
     method: 'post',
-    url: SecrectAPI + url,
+    url: url,
     data: data
   }).then((res) => {
     return Promise.resolve(res.data)
@@ -65,7 +65,7 @@ export function Register(formdata) {
   //});
   return axios({
     method: 'post',
-    url: SecrectAPI + url,
+    url: url,
     data: formdata,
   }).then((res) => {
     return Promise.resolve(res.data);
@@ -77,7 +77,7 @@ export function Register(formdata) {
 //获取用户信息 GetUserInfor
 export function GetUserInfor(data) {
   const url = '/GetUserInfor'
-  return axios.get(SecrectAPI + url,{
+  return axios.get(url,{
     params:{
         account:data.account,
         password:data.password
@@ -92,7 +92,7 @@ export function GetUserInfor(data) {
 //获取用户发表的文章列表 GetArticleList
 export function GetArticleList(data) {
   const url = '/GetArticleList'
-  return axios.get(SecrectAPI + url,{
+  return axios.get(url,{
     params:{
         account:data.account,
         password:data.password

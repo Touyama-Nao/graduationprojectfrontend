@@ -272,6 +272,8 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
+      } else if(!Number.isInteger(value)){
+        callback(new Error("请输入数字值"));
       } else {
         if (this.LoginForm.account !== "") {
           //this.$refs.LoginForm.validateField("password");
@@ -333,6 +335,7 @@ export default {
     },
     onLogin(formName) {
       var LoginForm = this.LoginForm;
+      this.LoginForm.password = parseInt(this.LoginForm.password); //强制转换数字值
       var that = this;
       that.isLogin = true;
       this.$refs[formName].validate(valid => {

@@ -172,7 +172,7 @@
                       <span style="float:left;">[{{item.category}}]</span>
                       <span style="float:left;">{{item.title}}</span>
                     </div>
-                    <div class="text item">{{item.briefintroduction}}</div>
+                    <div class="text item">{{item.briefcontent}}</div>
                     <div style="float:left;">
                       <time class="time" style="width:60px;">发布时间:{{item.creationtime }}</time>
                       <div class="userspan">
@@ -413,21 +413,22 @@ export default {
       apiTools
         .GetUserInfor(that.searchUserInfo)
         .then(res => {
+          console.log(res)
           if (res.result == "success") {
             that.$message({
               showClose: true,
               type: "success",
               message: "查询用户信息成功!"
             });
-            that.userInfoForm.account = res.message[0].account;
-            that.userInfoForm.password = parseInt(res.message[0].password);
-            that.userInfoForm.checkpassword = parseInt(res.message[0].password);
-            that.userInfoForm.nickname = res.message[0].nickname;
-            that.userInfoForm.phonenum = res.message[0].phonenum;
-            that.userInfoForm.address = res.message[0].address;
-            that.userInfoForm.sex = res.message[0].sex;
-            that.userInfoForm.address = res.message[0].address;
-            that.userInfoForm.age = res.message[0].age;
+            that.userInfoForm.account = res.message.account;
+            that.userInfoForm.password = parseInt(res.message.password);
+            that.userInfoForm.checkpassword = parseInt(res.message.password);
+            that.userInfoForm.nickname = res.message.nickname;
+            that.userInfoForm.phonenum = res.message.phonenum;
+            that.userInfoForm.address = res.message.address;
+            that.userInfoForm.sex = res.message.sex;
+            that.userInfoForm.address = res.message.address;
+            that.userInfoForm.age = res.message.age;
           } else if (res.result == "failed") {
             that.$message({
               type: "error",

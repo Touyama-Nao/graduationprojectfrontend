@@ -10,6 +10,9 @@ import VueAxios from 'vue-axios'
 
 Vue.use(ElementUI);
 Vue.use(VueAxios, axios)
+
+axios.defaults.baseURL = '/api' //跨域
+
 Vue.config.productionTip = false
 
 
