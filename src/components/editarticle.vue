@@ -7,7 +7,6 @@
           <el-menu
             class="el-menu-demo"
             mode="horizontal"
-            @select="handleSelect"
             background-color="#545c64"
             text-color="#fff"
             active-text-color="#ffd04b"
@@ -41,15 +40,10 @@
         <!-- 首页导航栏结束 -->
       </el-header>
     </el-container>
-    <vue-editor
-      :customModules="customModulesForEditor"
-      :editorOptions="editorSettings"
-      v-model="content"
-      :editorToolbar="customToolbar"
-      id="container"
-      @imageAdded="handleImageAdded"
-      > </vue-editor
-    >
+    <!-- 首页编辑文章模块开始 -->
+    <el-container>
+      <vue-editor v-model="article.content"> </vue-editor>
+    </el-container>
   </div>
 </template>
 <script>
@@ -69,8 +63,71 @@ export default {
   },
   name: "editarticle",
   components: { VueEditor },
+  data() {
+    return {
+      userName: "", //用户姓名
+      article:{ //文章内容保存
+        content:""
+      }
+    };
+  },
+  methods: {
+    init() {
+      var that = this;
+      that.userName = that.$route.params.account;
+    },
+    showAddDialog() {},
+    editForm() {},
+    selsChange() {},
+    addForm() {},
+  },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.el_b_form input {
+  width: 50% !important;
+}
+.editor1 #quill-container {
+  max-height: 1000px;
+  overflow: auto;
+}
+.ql-snow .ql-picker {
+  height: auto !important;
+  margin-top: -6px;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 108px;
+  height: 108px;
+  line-height: 108px;
+  text-align: center;
+}
+.avatar {
+  width: 108px;
+  height: 108px;
+  display: block;
+}
+.avatar2 {
+  @extend .avatar;
+}
+.ql-snow .ql-tooltip {
+  left: 23.602px !important;
+  top: 31px !important;
+  color: green;
+}
+.ql-snow .ql-editor img {
+  cursor: pointer;
+}
 </style>
