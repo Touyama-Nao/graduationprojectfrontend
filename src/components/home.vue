@@ -24,12 +24,16 @@
           </el-submenu>
         </el-submenu>
         <el-menu-item index="3">博客</el-menu-item>
-        <el-menu-item index="4">创作中心</el-menu-item>
-        <el-menu-item index="5" :disabled="!isLogin" @click="toUserPage()">个人中心</el-menu-item>
+        <el-menu-item index="4" :disabled="!isLogin" @click="gotoEdit()"
+          >创作中心</el-menu-item
+        >
+        <el-menu-item index="5" :disabled="!isLogin" @click="toUserPage()"
+          >个人中心</el-menu-item
+        >
         <el-menu-item index="6" disabled>
           <template slot="title">
             <i class="el-icon-user-solid"></i>
-            <span>{{userName}}</span>
+            <span>{{ userName }}</span>
           </template>
         </el-menu-item>
       </el-menu>
@@ -56,9 +60,13 @@
             <el-card class="box-card" shadow="always">
               <div slot="header" class="clearfix">
                 <span>卡片名称</span>
-                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                <el-button style="float: right; padding: 3px 0" type="text"
+                  >操作按钮</el-button
+                >
               </div>
-              <div v-for="o in 4" :key="o" class="text item">{{'列表内容 ' + o }}</div>
+              <div v-for="o in 4" :key="o" class="text item">
+                {{ "列表内容 " + o }}
+              </div>
             </el-card>
           </div>
         </el-col>
@@ -73,7 +81,8 @@
                     style="float: right; padding: 3px 0"
                     type="text"
                     @click="loginShow = !loginShow"
-                  >没有账号？注册</el-button>
+                    >没有账号？注册</el-button
+                  >
                 </div>
                 <div>
                   <el-form
@@ -101,9 +110,23 @@
                       ></el-input>
                     </el-form-item>
                     <el-form-item>
-                      <el-button type="primary" @click="onLogin('LoginForm')" v-show="!isLogin">登陆</el-button>
-                      <el-button @click="resetForm('LoginForm')" v-show="!isLogin">重置</el-button>
-                      <el-button type="primary" @click="Logout()" v-show="isLogin">退出登录</el-button>
+                      <el-button
+                        type="primary"
+                        @click="onLogin('LoginForm')"
+                        v-show="!isLogin"
+                        >登陆</el-button
+                      >
+                      <el-button
+                        @click="resetForm('LoginForm')"
+                        v-show="!isLogin"
+                        >重置</el-button
+                      >
+                      <el-button
+                        type="primary"
+                        @click="Logout()"
+                        v-show="isLogin"
+                        >退出登录</el-button
+                      >
                     </el-form-item>
                   </el-form>
                 </div>
@@ -118,7 +141,8 @@
                     style="float: right; padding: 3px 0"
                     type="text"
                     @click="loginShow = !loginShow"
-                  >已有账号？登陆</el-button>
+                    >已有账号？登陆</el-button
+                  >
                 </div>
                 <div>
                   <el-form
@@ -130,14 +154,28 @@
                     class="demo-ruleForm"
                   >
                     <el-form-item label="账号" prop="account">
-                      <el-input type="account" v-model="RegisterForm.account" autocomplete="off"></el-input>
+                      <el-input
+                        type="account"
+                        v-model="RegisterForm.account"
+                        autocomplete="off"
+                      ></el-input>
                     </el-form-item>
                     <el-form-item label="密码" prop="password">
-                      <el-input type="password" v-model="RegisterForm.password" autocomplete="off"></el-input>
+                      <el-input
+                        type="password"
+                        v-model="RegisterForm.password"
+                        autocomplete="off"
+                      ></el-input>
                     </el-form-item>
                     <el-form-item>
-                      <el-button type="primary" @click="onRegister('RegisterForm')">注册</el-button>
-                      <el-button @click="resetForm('RegisterForm')">重置</el-button>
+                      <el-button
+                        type="primary"
+                        @click="onRegister('RegisterForm')"
+                        >注册</el-button
+                      >
+                      <el-button @click="resetForm('RegisterForm')"
+                        >重置</el-button
+                      >
                     </el-form-item>
                   </el-form>
                 </div>
@@ -153,9 +191,13 @@
               <el-card class="box-card" shadow="always">
                 <div slot="header" class="clearfix">
                   <span>卡片名称</span>
-                  <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                  <el-button style="float: right; padding: 3px 0" type="text"
+                    >操作按钮</el-button
+                  >
                 </div>
-                <div v-for="o in 4" :key="o" class="text item">{{'列表内容 ' + o }}</div>
+                <div v-for="o in 4" :key="o" class="text item">
+                  {{ "列表内容 " + o }}
+                </div>
               </el-card>
             </div>
           </div>
@@ -166,9 +208,13 @@
               <el-card class="box-card" shadow="always">
                 <div slot="header" class="clearfix">
                   <span>卡片名称</span>
-                  <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                  <el-button style="float: right; padding: 3px 0" type="text"
+                    >操作按钮</el-button
+                  >
                 </div>
-                <div v-for="o in 4" :key="o" class="text item">{{'列表内容 ' + o }}</div>
+                <div v-for="o in 4" :key="o" class="text item">
+                  {{ "列表内容 " + o }}
+                </div>
               </el-card>
             </div>
           </div>
@@ -182,9 +228,13 @@
                 <el-card class="box-card" shadow="always">
                   <div slot="header" class="clearfix">
                     <span>卡片名称</span>
-                    <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                    <el-button style="float: right; padding: 3px 0" type="text"
+                      >操作按钮</el-button
+                    >
                   </div>
-                  <div v-for="o in 4" :key="o" class="text item">{{'列表内容 ' + o }}</div>
+                  <div v-for="o in 4" :key="o" class="text item">
+                    {{ "列表内容 " + o }}
+                  </div>
                 </el-card>
               </div>
             </div>
@@ -197,9 +247,13 @@
                 <el-card class="box-card" shadow="always">
                   <div slot="header" class="clearfix">
                     <span>卡片名称</span>
-                    <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                    <el-button style="float: right; padding: 3px 0" type="text"
+                      >操作按钮</el-button
+                    >
                   </div>
-                  <div v-for="o in 4" :key="o" class="text item">{{'列表内容 ' + o }}</div>
+                  <div v-for="o in 4" :key="o" class="text item">
+                    {{ "列表内容 " + o }}
+                  </div>
                 </el-card>
               </div>
             </div>
@@ -214,9 +268,13 @@
                 <el-card class="box-card" shadow="always">
                   <div slot="header" class="clearfix">
                     <span>卡片名称</span>
-                    <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                    <el-button style="float: right; padding: 3px 0" type="text"
+                      >操作按钮</el-button
+                    >
                   </div>
-                  <div v-for="o in 4" :key="o" class="text item">{{'列表内容 ' + o }}</div>
+                  <div v-for="o in 4" :key="o" class="text item">
+                    {{ "列表内容 " + o }}
+                  </div>
                 </el-card>
               </div>
             </div>
@@ -229,9 +287,13 @@
                 <el-card class="box-card" shadow="always">
                   <div slot="header" class="clearfix">
                     <span>卡片名称</span>
-                    <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                    <el-button style="float: right; padding: 3px 0" type="text"
+                      >操作按钮</el-button
+                    >
                   </div>
-                  <div v-for="o in 4" :key="o" class="text item">{{'列表内容 ' + o }}</div>
+                  <div v-for="o in 4" :key="o" class="text item">
+                    {{ "列表内容 " + o }}
+                  </div>
                 </el-card>
               </div>
             </div>
@@ -272,7 +334,7 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
-      } else if(!Number.isInteger(value)){
+      } else if (!Number.isInteger(value)) {
         callback(new Error("请输入数字值"));
       } else {
         if (this.LoginForm.account !== "") {
@@ -304,19 +366,19 @@ export default {
       isLogin: false,
       LoginForm: {
         account: "",
-        password: ""
+        password: "",
       },
       RegisterForm: {
         account: "",
-        password: ""
+        password: "",
       },
       rules: {
         account: [{ validator: validatePass, trigger: "blur" }],
-        password: [{ validator: validatePass2, trigger: "blur" }]
-      }
+        password: [{ validator: validatePass2, trigger: "blur" }],
+      },
     };
     return {
-      msg: "Welcome to Your Vue.js App"
+      msg: "Welcome to Your Vue.js App",
     };
   },
   methods: {
@@ -326,8 +388,8 @@ export default {
         name: "UserPage",
         params: {
           account: that.LoginForm.account,
-          password: that.LoginForm.password
-        }
+          password: that.LoginForm.password,
+        },
       });
     },
     handleSelect(key, keyPath) {
@@ -338,30 +400,30 @@ export default {
       this.LoginForm.password = parseInt(this.LoginForm.password); //强制转换数字值
       var that = this;
       that.isLogin = true;
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           apiTools
             .Login(this.LoginForm)
-            .then(res => {
+            .then((res) => {
               if (res.result == "success") {
                 that.$message({
                   showClose: true,
                   type: "success",
-                  message: "登陆成功!"
+                  message: "登陆成功!",
                 });
                 that.userName = that.LoginForm.account;
               } else if (res.result == "failed") {
                 that.$message({
                   type: "error",
-                  message: res.message
+                  message: res.message,
                 });
               }
             })
-            .catch(function(response) {
+            .catch(function (response) {
               that.$message.error({
                 showClose: true,
                 message: "登陆数据异常",
-                duration: 2000
+                duration: 2000,
               });
             });
         } else {
@@ -377,7 +439,7 @@ export default {
       that.$message({
         showClose: true,
         type: "success",
-        message: "退出登陆成功!"
+        message: "退出登陆成功!",
       });
       that.userName = "未登录";
     },
@@ -386,30 +448,30 @@ export default {
       this.RegisterForm.password = parseInt(this.RegisterForm.password); //将字符串转化成数字
       var RegisterForm = this.RegisterForm;
       var that = this;
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           apiTools
             .Register(this.RegisterForm)
-            .then(res => {
+            .then((res) => {
               if (res.result == "success") {
                 that.$message({
                   showClose: true,
                   type: "success",
-                  message: "恭喜你，注册成功!"
+                  message: "恭喜你，注册成功!",
                 });
                 that.loginShow = !that.loginShow;
               } else if (res.result == "failed") {
                 that.$message({
                   type: "error",
-                  message: res.message
+                  message: res.message,
                 });
               }
             })
-            .catch(function(response) {
+            .catch(function (response) {
               that.$message.error({
                 showClose: true,
                 message: "注册数据异常",
-                duration: 2000
+                duration: 2000,
               });
             });
         } else {
@@ -420,8 +482,18 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
-  }
+    },
+    //跳转到创作文章页面
+    gotoEdit() {
+      this.$router.push({
+        name: "EditArticle",
+        params: {
+          account: this.LoginForm.account,
+          password: this.LoginForm.password,
+        },
+      });
+    },
+  },
 };
 </script>
 

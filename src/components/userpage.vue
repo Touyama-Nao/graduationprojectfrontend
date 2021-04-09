@@ -26,14 +26,14 @@
               </el-submenu>
             </el-submenu>
             <el-menu-item index="3">博客</el-menu-item>
-            <el-menu-item index="4">创作中心</el-menu-item>
+            <el-menu-item index="4" @click="gotoEdit()">创作中心</el-menu-item>
             <el-menu-item index="5">
               <a href target="_blank" @click="toUserPage()">个人中心</a>
             </el-menu-item>
             <el-menu-item index="6" disabled>
               <template slot="title">
                 <i class="el-icon-user-solid"></i>
-                <span>{{userName}}</span>
+                <span>{{ userName }}</span>
               </template>
             </el-menu-item>
           </el-menu>
@@ -53,7 +53,8 @@
                       style="float: right; padding: 3px 0"
                       type="text"
                       @click="modifyUserInfo()"
-                    >修改信息</el-button>
+                      >修改信息</el-button
+                    >
                   </div>
                   <el-form
                     :model="userInfoForm"
@@ -79,7 +80,11 @@
                         :disabled="!isModify"
                       ></el-input>
                     </el-form-item>
-                    <el-form-item label="确认密码" prop="checkpassword" v-show="isModify">
+                    <el-form-item
+                      label="确认密码"
+                      prop="checkpassword"
+                      v-show="isModify"
+                    >
                       <el-input
                         type="checkpassword"
                         v-model="userInfoForm.checkpassword"
@@ -88,10 +93,16 @@
                       ></el-input>
                     </el-form-item>
                     <el-form-item label="昵称" prop="nickname">
-                      <el-input v-model="userInfoForm.nickname" :disabled="!isModify"></el-input>
+                      <el-input
+                        v-model="userInfoForm.nickname"
+                        :disabled="!isModify"
+                      ></el-input>
                     </el-form-item>
                     <el-form-item label="年龄" prop="age">
-                      <el-input v-model.number="userInfoForm.age" :disabled="!isModify"></el-input>
+                      <el-input
+                        v-model.number="userInfoForm.age"
+                        :disabled="!isModify"
+                      ></el-input>
                     </el-form-item>
                     <el-form-item label="性别" size="medium" width="200px">
                       <el-select
@@ -104,15 +115,27 @@
                       </el-select>
                     </el-form-item>
                     <el-form-item label="电话号码" prop="phonenum">
-                      <el-input v-model.number="userInfoForm.phonenum" :disabled="!isModify"></el-input>
+                      <el-input
+                        v-model.number="userInfoForm.phonenum"
+                        :disabled="!isModify"
+                      ></el-input>
                     </el-form-item>
                     <el-form-item label="地址" prop="address">
-                      <el-input v-model.number="userInfoForm.address" :disabled="!isModify"></el-input>
+                      <el-input
+                        v-model.number="userInfoForm.address"
+                        :disabled="!isModify"
+                      ></el-input>
                     </el-form-item>
 
                     <el-form-item v-show="isModify">
-                      <el-button type="primary" @click="UpdateUserInfor('userInfoForm')">提交修改</el-button>
-                      <el-button @click="resetForm('userInfoForm')">重置</el-button>
+                      <el-button
+                        type="primary"
+                        @click="UpdateUserInfor('userInfoForm')"
+                        >提交修改</el-button
+                      >
+                      <el-button @click="resetForm('userInfoForm')"
+                        >重置</el-button
+                      >
                     </el-form-item>
                   </el-form>
                 </el-card>
@@ -164,24 +187,30 @@
               </el-menu>
             </el-row>
             <!-- 个人页面文章列表卡片 -->
-            <el-row v-for="(item,index) in userarticle" :key="index">
+            <el-row v-for="(item, index) in userarticle" :key="index">
               <div class="grid-content bg-purple">
                 <div class="grid-content bg-purple">
-                  <el-card class="box-card" shadow="always" style="padding:10px;">
+                  <el-card
+                    class="box-card"
+                    shadow="always"
+                    style="padding: 10px"
+                  >
                     <div slot="header" class="clearfix">
-                      <span style="float:left;">[{{item.category}}]</span>
-                      <span style="float:left;">{{item.title}}</span>
+                      <span style="float: left">[{{ item.category }}]</span>
+                      <span style="float: left">{{ item.title }}</span>
                     </div>
-                    <div class="text item">{{item.briefcontent}}</div>
-                    <div style="float:left;">
-                      <time class="time" style="width:60px;">发布时间:{{item.creationtime }}</time>
+                    <div class="text item">{{ item.briefcontent }}</div>
+                    <div style="float: left">
+                      <time class="time" style="width: 60px"
+                        >发布时间:{{ item.creationtime }}</time
+                      >
                       <div class="userspan">
                         <i class="el-icon-chat-dot-square"></i>
-                        <span>评论数:{{item.comnum}}</span>
+                        <span>评论数:{{ item.comnum }}</span>
                       </div>
                       <div class="userspan">
                         <i class="el-icon-s-opportunity"></i>
-                        <span>点赞数:{{item.likenum}}</span>
+                        <span>点赞数:{{ item.likenum }}</span>
                       </div>
                     </div>
                   </el-card>
@@ -310,12 +339,12 @@ export default {
       userarticle: [
         {
           article: "",
-          title: ""
+          title: "",
         },
         {
           article: "",
-          title: ""
-        }
+          title: "",
+        },
       ],
       userInfoForm: {
         account: "",
@@ -325,21 +354,21 @@ export default {
         phonenum: "",
         address: "",
         sex: "",
-        age: ""
+        age: "",
       },
       searchUserInfo: {
         account: "",
-        password: ""
+        password: "",
       },
       rules: {
         password: [{ validator: validatePass, trigger: "blur" }],
         checkpassword: [{ validator: validatePass2, trigger: "blur" }],
         age: [{ validator: checkAge, trigger: "blur" }],
         nickname: [{ validator: checkNickname, trigger: "blur" }],
-        phonenum: [{ validator: checkphonenum, trigger: "blur" }]
+        phonenum: [{ validator: checkphonenum, trigger: "blur" }],
       },
       userName: "",
-      isModify: false
+      isModify: false,
     };
   },
   mounted() {
@@ -353,7 +382,7 @@ export default {
       var that = this;
       apiTools
         .GetArticleList(that.searchUserInfo)
-        .then(res => {
+        .then((res) => {
           if (res.result == "success") {
             console.log(res.result);
             that.userarticle = res.message;
@@ -382,20 +411,20 @@ export default {
             that.$message({
               showClose: true,
               type: "success",
-              message: "查询用户文章列表成功!"
+              message: "查询用户文章列表成功!",
             });
           } else if (res.result == "failed") {
             that.$message({
               type: "error",
-              message: res.message
+              message: res.message,
             });
           }
         })
-        .catch(function(response) {
+        .catch(function (response) {
           that.$message.error({
             showClose: true,
             message: "查询用户文章列表数据异常",
-            duration: 2000
+            duration: 2000,
           });
         });
     },
@@ -412,13 +441,13 @@ export default {
       that.searchUserInfo.password = that.$route.params.password;
       apiTools
         .GetUserInfor(that.searchUserInfo)
-        .then(res => {
-          console.log(res)
+        .then((res) => {
+          console.log(res);
           if (res.result == "success") {
             that.$message({
               showClose: true,
               type: "success",
-              message: "查询用户信息成功!"
+              message: "查询用户信息成功!",
             });
             that.userInfoForm.account = res.message.account;
             that.userInfoForm.password = parseInt(res.message.password);
@@ -432,15 +461,15 @@ export default {
           } else if (res.result == "failed") {
             that.$message({
               type: "error",
-              message: res.message
+              message: res.message,
             });
           }
         })
-        .catch(function(response) {
+        .catch(function (response) {
           that.$message.error({
             showClose: true,
             message: "查询用户信息数据异常",
-            duration: 2000
+            duration: 2000,
           });
         });
     },
@@ -450,29 +479,29 @@ export default {
     //修改个人信息表单提交函数
     UpdateUserInfor(formName) {
       var that = this;
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           apiTools
             .UpdateUserInfor(that.userInfoForm)
-            .then(res => {
+            .then((res) => {
               if (res.result == "success") {
                 that.$message({
                   showClose: true,
                   type: "success",
-                  message: "修改用户信息成功!"
+                  message: "修改用户信息成功!",
                 });
               } else if (res.result == "failed") {
                 that.$message({
                   type: "error",
-                  message: res.message
+                  message: res.message,
                 });
               }
             })
-            .catch(function(response) {
+            .catch(function (response) {
               that.$message.error({
                 showClose: true,
                 message: "修改用户信息数据异常",
-                duration: 2000
+                duration: 2000,
               });
             });
         } else {
@@ -483,8 +512,17 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
-  }
+    },
+    gotoEdit() {
+      this.$router.push({
+        name: "EditArticle",
+        params: {
+          account: this.userInfoForm.account,
+          password: this.userInfoForm.password,
+        },
+      });
+    },
+  },
 };
 </script>
 <style scoped>
@@ -572,6 +610,6 @@ export default {
 /* 点赞和评论数目span的csss */
 .userspan {
   width: 200px;
-  display:inline-block;
+  display: inline-block;
 }
 </style>
