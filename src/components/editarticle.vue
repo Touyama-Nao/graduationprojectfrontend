@@ -51,7 +51,36 @@
         <el-form-item label="文章名" prop="title">
           <el-input v-model="editForm.title" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="日期" prop="postDate">
+        <el-form-item label="标签">
+          <el-tag
+            :key="tag"
+            v-for="tag in editForm.dynamicTags"
+            closable
+            effect="dark"
+            :disable-transitions="false"
+            @close="handleClose(tag)"
+          >
+            {{ tag }}
+          </el-tag>
+          <el-input
+            class="input-new-tag"
+            v-if="inputVisible"
+            v-model="inputValue"
+            ref="saveTagInput"
+            size="small"
+            @keyup.enter.native="handleInputConfirm"
+            @blur="handleInputConfirm"
+          >
+          </el-input>
+          <el-button
+            v-else
+            class="button-new-tag"
+            size="small"
+            @click="showInput"
+            >+ New Tag</el-button
+          >
+        </el-form-item>
+        <el-form-item label="日期" prop="creationtime">
           <el-date-picker
             type="date"
             placeholder="选择日期"
@@ -62,10 +91,8 @@
           <vue-editor v-model="editForm.content"> </vue-editor>
         </el-form-item>
         <el-form-item>
-          <el-button @click.native="editFormVisible = false">取消</el-button>
-        </el-form-item>
-        <el-form-item label="内容" prop="content">
-          <el-button type="primary" @click.native="editSubmit">提交</el-button>
+          <el-button>取消</el-button>
+          <el-button type="primary" @click="editSubmit">提交</el-button>
         </el-form-item>
       </el-form>
     </el-container>
@@ -94,6 +121,17 @@ export default {
       editForm: {
         //文章内容保存
         content: "",
+        //标签数据
+        dynamicTags: ["标签一", "标签二", "标签三"],
+      },
+      inputVisible: false,
+      inputValue: "",
+      // 表单验证规则
+      editFormRules: {
+        title: [{ required: true, message: "请输入文章名", trigger: "blur" }],
+        source: [{ required: false, message: "请输入来源", trigger: "blur" }],
+        content: [{ required: true, message: "请输入内容", trigger: "blur" }],
+        postDate: [{ required: false, message: "请填写日期", trigger: "blur" }],
       },
     };
   },
@@ -102,54 +140,45 @@ export default {
       var that = this;
       that.userName = that.$route.params.account;
     },
+    editSubmit() {},
+    handleClose(tag) {
+      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+    },
+
+    showInput() {
+      this.inputVisible = true;
+      this.$nextTick((_) => {
+        this.$refs.saveTagInput.$refs.input.focus();
+      });
+    },
+
+    handleInputConfirm() {
+      let inputValue = this.inputValue;
+      if (inputValue) {
+        this.dynamicTags.push(inputValue);
+      }
+      this.inputVisible = false;
+      this.inputValue = "";
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.el_b_form input {
-  width: 50% !important;
+/* 标签css */
+.el-tag + .el-tag {
+  margin-left: 10px;
 }
-.editor1 #quill-container {
-  max-height: 1000px;
-  overflow: auto;
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
-.ql-snow .ql-picker {
-  height: auto !important;
-  margin-top: -6px;
-}
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 108px;
-  height: 108px;
-  line-height: 108px;
-  text-align: center;
-}
-.avatar {
-  width: 108px;
-  height: 108px;
-  display: block;
-}
-.avatar2 {
-  @extend .avatar;
-}
-.ql-snow .ql-tooltip {
-  left: 23.602px !important;
-  top: 31px !important;
-  color: green;
-}
-.ql-snow .ql-editor img {
-  cursor: pointer;
+.input-new-tag {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
 }
 </style>
