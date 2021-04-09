@@ -42,7 +42,32 @@
     </el-container>
     <!-- 首页编辑文章模块开始 -->
     <el-container>
-      <vue-editor v-model="article.content"> </vue-editor>
+      <el-form
+        :model="editForm"
+        label-width="100px"
+        :rules="editFormRules"
+        ref="editForm"
+      >
+        <el-form-item label="文章名" prop="title">
+          <el-input v-model="editForm.title" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="日期" prop="postDate">
+          <el-date-picker
+            type="date"
+            placeholder="选择日期"
+            v-model="editForm.postDate"
+          ></el-date-picker>
+        </el-form-item>
+        <el-form-item label="内容" prop="content">
+          <vue-editor v-model="editForm.content"> </vue-editor>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click.native="editFormVisible = false">取消</el-button>
+        </el-form-item>
+        <el-form-item label="内容" prop="content">
+          <el-button type="primary" @click.native="editSubmit">提交</el-button>
+        </el-form-item>
+      </el-form>
     </el-container>
   </div>
 </template>
@@ -66,9 +91,10 @@ export default {
   data() {
     return {
       userName: "", //用户姓名
-      article:{ //文章内容保存
-        content:""
-      }
+      editForm: {
+        //文章内容保存
+        content: "",
+      },
     };
   },
   methods: {
@@ -76,10 +102,6 @@ export default {
       var that = this;
       that.userName = that.$route.params.account;
     },
-    showAddDialog() {},
-    editForm() {},
-    selsChange() {},
-    addForm() {},
   },
 };
 </script>
