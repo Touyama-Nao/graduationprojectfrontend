@@ -84,7 +84,7 @@
           <el-date-picker
             type="date"
             placeholder="选择日期"
-            v-model="editForm.postDate"
+            v-model="editForm.creationtime"
           ></el-date-picker>
         </el-form-item>
         <el-form-item label="内容" prop="content">
@@ -99,6 +99,7 @@
   </div>
 </template>
 <script>
+import * as apiTools from "@/api/user";
 import { VueEditor } from "vue2-editor";
 import Qs from "qs";
 
@@ -121,8 +122,11 @@ export default {
       editForm: {
         //文章内容保存
         content: "",
+        title: "",
+        creationtime: "",
         //标签数据
         dynamicTags: ["标签一", "标签二", "标签三"],
+        account: "",
       },
       inputVisible: false,
       inputValue: "",
@@ -135,14 +139,54 @@ export default {
       },
     };
   },
+  mounted() {
+    var that = this;
+    that.init();
+  },
   methods: {
     init() {
       var that = this;
       that.userName = that.$route.params.account;
     },
-    editSubmit() {},
+    editSubmit() {
+      var that = this;
+      console.log(that.editForm);
+      console.log(that.editForm.content);
+      that.editForm.acccount = that.userName;
+      that.editForm.content = that.editForm.content
+        .replace(/<\/div>/g, "</p>")
+        .replace(/<div/g, "<p"); //此处vue2-editor的v-model无法显示div
+      console.log(that.editForm.content);
+      apiTools
+        .PostArticle(that.editForm)
+        .then((res) => {
+          if (res.result == "success") {
+            console.log(res.result);
+            that.$message({
+              showClose: true,
+              type: "success",
+              message: "发表用户文章成功!",
+            });
+          } else if (res.result == "failed") {
+            that.$message({
+              type: "error",
+              message: res.message,
+            });
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "发表用户文章数据异常",
+            duration: 2000,
+          });
+        });
+    },
     handleClose(tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+      this.editForm.dynamicTags.splice(
+        this.editForm.dynamicTags.indexOf(tag),
+        1
+      );
     },
 
     showInput() {
@@ -155,7 +199,7 @@ export default {
     handleInputConfirm() {
       let inputValue = this.inputValue;
       if (inputValue) {
-        this.dynamicTags.push(inputValue);
+        this.editForm.dynamicTags.push(inputValue);
       }
       this.inputVisible = false;
       this.inputValue = "";

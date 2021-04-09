@@ -106,11 +106,12 @@ export function GetArticleList(data) {
 
 
 
-//获取订阅内容
-export function getSubscribe(prefix) {
-  const url = prefix + '/information/getSubscribe'
+//发表文章帖子
+export function PostArticle(data) {
+  const url = "/PostArticle"
   return axios({
-    method: 'get',
-    url: url
+    method: 'post',
+    url: url,
+    data: data,
   }).then(res => Promise.resolve(res.data)).catch(err => Promise.reject(err.data))
 }
