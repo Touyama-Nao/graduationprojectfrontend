@@ -373,8 +373,8 @@ export default {
   },
   mounted() {
     var that = this;
-    that.init();
     that.checkLogin();
+    that.init();
     that.getuserarticlelist();
   },
   methods: {
@@ -385,6 +385,7 @@ export default {
         .getSessions()
         .then((res) => {
           if (res.result == "success") {
+            console.log(res)
             that.isLogin = true;
             that.userName = res.message.account;
             that.userInfoForm.account = res.message.account;
@@ -461,11 +462,11 @@ export default {
     },
     init() {
       var that = this;
-      that.userName = that.$route.params.account;
-      that.userInfoForm.account = that.$route.params.account;
-      that.userInfoForm.password = that.$route.params.password;
-      that.searchUserInfo.account = that.$route.params.account;
-      that.searchUserInfo.password = that.$route.params.password;
+      // that.userName = that.$route.params.account;
+      // that.userInfoForm.account = that.$route.params.account;
+      // that.userInfoForm.password = that.$route.params.password;
+      // that.searchUserInfo.account = that.$route.params.account;
+      // that.searchUserInfo.password = that.$route.params.password;
       apiTools
         .GetUserInfor(that.searchUserInfo)
         .then((res) => {
