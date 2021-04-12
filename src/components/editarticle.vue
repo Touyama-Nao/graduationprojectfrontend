@@ -176,13 +176,10 @@ export default {
     },
     editSubmit() {
       var that = this;
-      console.log(that.editForm);
-      console.log(that.editForm.content);
       that.editForm.account = that.userName;
       that.editForm.content = that.editForm.content
         .replace(/<\/div>/g, "</p>")
         .replace(/<div/g, "<p"); //此处vue2-editor的v-model无法显示div
-      console.log(that.editForm.content);
       apiTools
         .PostArticle(that.editForm)
         .then((res) => {

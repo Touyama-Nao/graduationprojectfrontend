@@ -371,11 +371,18 @@ export default {
       isModify: false,
     };
   },
+  watch: {
+    searchUserInfo: {
+    　　handler(newVal, oldVal) {
+        this.getuserarticlelist();
+        this.init();
+    　　},
+        deep: true,
+    }
+  }, 
   mounted() {
     var that = this;
     that.checkLogin();
-    that.init();
-    that.getuserarticlelist();
   },
   methods: {
     //获取登陆状态
@@ -408,6 +415,7 @@ export default {
     getuserarticlelist() {
       //获取当前用户的文章
       var that = this;
+      console.log(that.searchUserInfo);
       apiTools
         .GetArticleList(that.searchUserInfo)
         .then((res) => {
