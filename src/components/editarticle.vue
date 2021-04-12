@@ -11,7 +11,7 @@
             text-color="#fff"
             active-text-color="#ffd04b"
           >
-            <el-menu-item index="1">首页</el-menu-item>
+            <el-menu-item index="1" @click="toHomePage()">首页</el-menu-item>
             <el-submenu index="2">
               <template slot="title">高校</template>
               <el-menu-item index="2-1">选项1</el-menu-item>
@@ -26,8 +26,7 @@
             </el-submenu>
             <el-menu-item index="3">博客</el-menu-item>
             <el-menu-item index="4">创作中心</el-menu-item>
-            <el-menu-item index="5">
-              <a href target="_blank" @click="toUserPage()">个人中心</a>
+            <el-menu-item index="5"  @click="toUserPage()">个人中心
             </el-menu-item>
             <el-menu-item index="6" disabled>
               <template slot="title">
@@ -119,6 +118,7 @@ export default {
   data() {
     return {
       userName: "", //用户姓名
+      password: "", //保存用户密码
       editForm: {
         //文章内容保存
         content: "",
@@ -147,12 +147,13 @@ export default {
     init() {
       var that = this;
       that.userName = that.$route.params.account;
+      that.password = that.$route.params.password;
     },
     editSubmit() {
       var that = this;
       console.log(that.editForm);
       console.log(that.editForm.content);
-      that.editForm.acccount = that.userName;
+      that.editForm.account = that.userName;
       that.editForm.content = that.editForm.content
         .replace(/<\/div>/g, "</p>")
         .replace(/<div/g, "<p"); //此处vue2-editor的v-model无法显示div
@@ -203,6 +204,28 @@ export default {
       }
       this.inputVisible = false;
       this.inputValue = "";
+    },
+    //跳转回去首页
+    toHomePage() {
+      var that = this;
+      this.$router.push({
+        name: "home",
+        params: {
+          account: that.userName,
+          password: that.password,
+        },
+      });
+    },
+    //去用户主页
+    toUserPage() {
+      var that = this;
+      this.$router.push({
+        name: "UserPage",
+        params: {
+          account: that.userName,
+          password: that.password,
+        },
+      });
     },
   },
 };

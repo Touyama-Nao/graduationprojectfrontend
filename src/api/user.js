@@ -25,6 +25,22 @@ export function Login(formdata) {
   })
 }
 
+//登出请求
+export function Logout(formdata) {
+  var that = this;
+  var data = formdata;
+  const url = '/Logout'
+  return axios({
+    method: 'post',
+    url:  url,
+    data: data
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch((err) => {
+    return Promise.reject(err.data)
+  })
+}
+
 //修改用户信息请求
 
 export function UpdateUserInfor(formdata) {
@@ -42,12 +58,12 @@ export function UpdateUserInfor(formdata) {
   })
 }
 
-//获取登录信息
-export function getLoginData(prefix) {
-  const url = '/user/getPermission'
+//获取登录状态信息
+export function getSessions(prefix) {
+  const url = '/getSessions'
   return axios({
     method: 'get',
-    url: SecrectAPI + url
+    url: url
   }).then((res) => {
     return Promise.resolve(res.data)
   }).catch((err) => {

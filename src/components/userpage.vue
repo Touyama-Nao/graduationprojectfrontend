@@ -12,7 +12,7 @@
             text-color="#fff"
             active-text-color="#ffd04b"
           >
-            <el-menu-item index="1">首页</el-menu-item>
+            <el-menu-item index="1" @click="toHomePage()">首页</el-menu-item>
             <el-submenu index="2">
               <template slot="title">高校</template>
               <el-menu-item index="2-1">选项1</el-menu-item>
@@ -27,8 +27,8 @@
             </el-submenu>
             <el-menu-item index="3">博客</el-menu-item>
             <el-menu-item index="4" @click="gotoEdit()">创作中心</el-menu-item>
-            <el-menu-item index="5">
-              <a href target="_blank" @click="toUserPage()">个人中心</a>
+            <el-menu-item index="5" @click="toUserPage()"
+              >个人中心
             </el-menu-item>
             <el-menu-item index="6" disabled>
               <template slot="title">
@@ -517,8 +517,30 @@ export default {
       this.$router.push({
         name: "EditArticle",
         params: {
-          account: this.userInfoForm.account,
-          password: this.userInfoForm.password,
+          account: that.userInfoForm.account,
+          password: that.userInfoForm.password,
+        },
+      });
+    },
+    //跳转回去首页
+    toHomePage() {
+      var that = this;
+      this.$router.push({
+        name: "home",
+        params: {
+          account: that.userInfoForm.account,
+          password: that.userInfoForm.account,
+        },
+      });
+    },
+    //跳转回去用户首页
+    toUserPage() {
+      var that = this;
+      this.$router.push({
+        name: "UserPage",
+        params: {
+          account: that.userInfoForm.account,
+          password: that.userInfoForm.account,
         },
       });
     },

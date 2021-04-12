@@ -381,6 +381,10 @@ export default {
       msg: "Welcome to Your Vue.js App",
     };
   },
+  mounted() {
+    var that = this;
+    that.checkLogin(); 
+  },
   methods: {
     toUserPage() {
       var that = this;
@@ -392,6 +396,30 @@ export default {
         },
       });
     },
+    //获取登陆状态
+    checkLogin() {
+      var that = this;
+      apiTools
+        .getSessions()
+        .then((res) => {
+          if (res.result == "success") {
+            that.isLogin = true;
+            that.userName = res.message.account;
+            that.LoginForm.account = res.message.account;
+            that.LoginForm.password = res.message.password;
+          } else if (res.result == "failed") {
+            that.isLogin = false;
+            that.userName = "未登录";
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "登陆数据异常",
+            duration: 2000,
+          });
+        });
+    },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -399,7 +427,6 @@ export default {
       var LoginForm = this.LoginForm;
       this.LoginForm.password = parseInt(this.LoginForm.password); //强制转换数字值
       var that = this;
-      that.isLogin = true;
       this.$refs[formName].validate((valid) => {
         if (valid) {
           apiTools
@@ -411,6 +438,7 @@ export default {
                   type: "success",
                   message: "登陆成功!",
                 });
+                that.isLogin = true;
                 that.userName = that.LoginForm.account;
               } else if (res.result == "failed") {
                 that.$message({
@@ -435,13 +463,36 @@ export default {
     //登出函数
     Logout() {
       var that = this;
-      that.isLogin = false;
-      that.$message({
-        showClose: true,
-        type: "success",
-        message: "退出登陆成功!",
-      });
-      that.userName = "未登录";
+      apiTools
+        .Logout(this.LoginForm)
+        .then((res) => {
+          if (res.result == "success") {
+            that.$message({
+              showClose: true,
+              type: "success",
+              message: "登出成功!",
+            });
+            that.isLogin = false;
+            that.userName = "未登录";
+          } else if (res.result == "failed") {
+            that.$message({
+              type: "error",
+              message: res.message,
+            });
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "登陆数据异常",
+            duration: 2000,
+          });
+        });
+      // that.$message({
+      //   showClose: true,
+      //   type: "success",
+      //   message: "退出登陆成功!",
+      // });
     },
     //注册函数
     onRegister(formName) {
