@@ -42,7 +42,10 @@
     </el-container>
   </div>
 </template>
+
 <script>
+import * as apiTools from "@/api/user";
+
 export default {
   beforeRouteEnter(to, from, next) {
     // 添加背景色 margin:0;padding:0是为了解决vue四周有白边的问题
@@ -57,8 +60,39 @@ export default {
   name: "articledetails",
   data() {
     return {
-
+      isLogin: false,
+      userName: "未登录",
+      password: "",
     };
+  },
+  mounted() {
+    var that = this;
+    that.checkLogin();
+  },
+  methods: {
+    //获取登陆状态
+    checkLogin() {
+      var that = this;
+      apiTools
+        .getSessions()
+        .then((res) => {
+          if (res.result == "success") {
+            that.isLogin = true;
+            that.userName = res.message.account;
+            that.password = res.message.password;
+          } else if (res.result == "failed") {
+            that.isLogin = false;
+            that.userName = "未登录";
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "登陆数据异常",
+            duration: 2000,
+          });
+        });
+    },
   },
 };
 </script>

@@ -392,7 +392,6 @@ export default {
         .getSessions()
         .then((res) => {
           if (res.result == "success") {
-            console.log(res)
             that.isLogin = true;
             that.userName = res.message.account;
             that.userInfoForm.account = res.message.account;
@@ -415,12 +414,10 @@ export default {
     getuserarticlelist() {
       //获取当前用户的文章
       var that = this;
-      console.log(that.searchUserInfo);
       apiTools
         .GetArticleList(that.searchUserInfo)
         .then((res) => {
           if (res.result == "success") {
-            console.log(res.result);
             that.userarticle = res.message;
             //that.userarticle.category
             for (var i = 0; i < that.userarticle.length; i++) {
@@ -478,7 +475,6 @@ export default {
       apiTools
         .GetUserInfor(that.searchUserInfo)
         .then((res) => {
-          console.log(res);
           if (res.result == "success") {
             that.$message({
               showClose: true,
