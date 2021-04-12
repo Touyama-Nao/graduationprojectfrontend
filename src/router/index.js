@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import home from '@/components/home'
 import userpage from '@/components/userpage'
 import editarticle from '@/components/editarticle'
+import articledetails from '@/components/articledetails'
 
 Vue.use(Router)
 
@@ -24,6 +25,12 @@ export default new Router({
       name: 'EditArticle',
       component: editarticle
 
-    }
+    },
+    {      
+      path: '/articledetails',
+      name: 'ArticleDetails',
+      component: articledetails
+
+    },
   ]
 })

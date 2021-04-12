@@ -374,9 +374,36 @@ export default {
   mounted() {
     var that = this;
     that.init();
+    that.checkLogin();
     that.getuserarticlelist();
   },
   methods: {
+    //获取登陆状态
+    checkLogin() {
+      var that = this;
+      apiTools
+        .getSessions()
+        .then((res) => {
+          if (res.result == "success") {
+            that.isLogin = true;
+            that.userName = res.message.account;
+            that.userInfoForm.account = res.message.account;
+            that.userInfoForm.password = res.message.password;
+            that.searchUserInfo.account = res.message.account;
+            that.searchUserInfo.password = res.message.password;
+          } else if (res.result == "failed") {
+            that.isLogin = false;
+            that.userName = "未登录";
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "登陆数据异常",
+            duration: 2000,
+          });
+        });
+    },
     getuserarticlelist() {
       //获取当前用户的文章
       var that = this;

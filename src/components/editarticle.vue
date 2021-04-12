@@ -26,7 +26,8 @@
             </el-submenu>
             <el-menu-item index="3">博客</el-menu-item>
             <el-menu-item index="4">创作中心</el-menu-item>
-            <el-menu-item index="5"  @click="toUserPage()">个人中心
+            <el-menu-item index="5" @click="toUserPage()"
+              >个人中心
             </el-menu-item>
             <el-menu-item index="6" disabled>
               <template slot="title">
@@ -142,12 +143,36 @@ export default {
   mounted() {
     var that = this;
     that.init();
+    that.checkLogin();
   },
   methods: {
     init() {
       var that = this;
       that.userName = that.$route.params.account;
       that.password = that.$route.params.password;
+    },
+    //获取登陆状态
+    checkLogin() {
+      var that = this;
+      apiTools
+        .getSessions()
+        .then((res) => {
+          if (res.result == "success") {
+            that.isLogin = true;
+            that.userName = res.message.account;
+            that.password = res.message.password;
+          } else if (res.result == "failed") {
+            that.isLogin = false;
+            that.userName = "未登录";
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "登陆数据异常",
+            duration: 2000,
+          });
+        });
     },
     editSubmit() {
       var that = this;
