@@ -131,3 +131,17 @@ export function PostArticle(data) {
     data: data,
   }).then(res => Promise.resolve(res.data)).catch(err => Promise.reject(err.data))
 }
+
+//GetArticleContent
+export function GetArticleContent(data) {
+  const url = '/GetArticleContent'
+  return axios.get(url,{
+    params:{
+      articleid:data
+    }
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch((err) => {
+    return Promise.reject(err.data)
+  })
+}

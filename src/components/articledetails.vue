@@ -1,7 +1,7 @@
 <template>
   <div id="articledetails" class="articledetails">
     <el-container>
-      <el-header>
+      <el-header style="padding: 0 !important">
         <!-- 首页导航栏开始 -->
         <div id="navigation-bar">
           <el-menu
@@ -39,6 +39,50 @@
         </div>
         <!-- 首页导航栏结束 -->
       </el-header>
+      <el-container>
+        <el-aside width="520px" style="padding: 20px">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>卡片名称</span>
+              <el-button style="float: right; padding: 3px 0" type="text"
+                >操作按钮</el-button
+              >
+            </div>
+            <div class="text item">文章列表</div>
+          </el-card></el-aside
+        >
+        <el-container>
+          <el-main>
+            <el-container>
+              <el-header style="height: 150px">
+                <el-card class="box-card" style="width: 700px !important">
+                  <div class="text item">标题</div>
+                </el-card>
+                <el-card class="box-card" style="width: 700px !important">
+                  <span class="text item">作者:{{ this.article.author }}</span>
+                  <span class="text item"
+                    >点赞数:{{ this.article.likenum }}</span
+                  >
+                  <span class="text item"
+                    >创作时间:{{ this.article.creationtime }}</span
+                  >
+                  <span class="text item"
+                    >标签:{{ this.article.dynamicTags }}</span
+                  >
+                  <span class="text item">评分:{{ this.article.rate }}</span>
+                </el-card>
+              </el-header>
+              <el-main
+                ><el-card class="box-card" style="width: 700px !important">
+                  <div class="text item">文章内容</div>
+                </el-card></el-main
+              >
+              <el-footer>Footer</el-footer>
+            </el-container>
+          </el-main>
+          <el-footer>暂定评论区</el-footer>
+        </el-container>
+      </el-container>
     </el-container>
   </div>
 </template>
@@ -63,6 +107,16 @@ export default {
       isLogin: false,
       userName: "未登录",
       password: "",
+      article: {
+        content: "",
+        author: "",
+        comnum: 0,
+        likenum: 0,
+        category: 1,
+        creationtime: "",
+        title: "",
+        dynamicTags: [],
+      },
     };
   },
   mounted() {
@@ -93,11 +147,51 @@ export default {
           });
         });
     },
+    //获取路由值和文章详情初始化
+    init() {
+      var that = this;
+      that.article.articleid = that.$route.params.articleid;
+      apiTools
+        .GetArticleContent(that.article.articleid)
+        .then((res) => {
+          if (res.result == "success") {
+            that.isLogin = true;
+            that.article = res.message;
+          } else if (res.result == "failed") {
+            that.$message.error({
+              showClose: true,
+              message: "获取文章详情失败！",
+              duration: 2000,
+            });
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "登陆数据异常",
+            duration: 2000,
+          });
+        });
+    },
   },
 };
 </script>
 <style scoped lang="scss">
 .articledetails {
   margin: 0;
+}
+/* 文章信息表头 */
+.text {
+  font-size: 14px;
+}
+
+.item {
+  padding: 18px 0;
+}
+
+.box-card {
+  width: 480px;
+}
+.el-header {
 }
 </style>
