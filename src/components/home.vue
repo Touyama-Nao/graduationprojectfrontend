@@ -80,10 +80,11 @@
                   v-for="(item, key) in articlelist.mathematics"
                   :key="key"
                   class="text item"
-                  style="width: 200px"
+                  style="width: 220px;"
+                  @click="gotoArticleDet(item.articleid)"
                 >
-                  <span style="float: left">{{ item.title }}</span>
-                  <span style="float: right">{{ item.creationtime }}</span>
+                  <span style="float: left;text-decoration: underline">{{ item.title }}</span>
+                  <span style="float: right;text-decoration: underline">{{ item.creationtime }}</span>
                 </div>
               </div>
             </el-card>
@@ -230,10 +231,10 @@
                     v-for="(item, key) in articlelist.English"
                     :key="key"
                     class="text item"
-                    style="width: 200px"
+                    style="width: 220px;"
                   >
-                    <span style="float: left">{{ item.title }}</span>
-                    <span style="float: right">{{ item.creationtime }}</span>
+                    <span style="float: left;text-decoration: underline">{{ item.title }}</span>
+                    <span style="float: right;text-decoration: underline">{{ item.creationtime }}</span>
                   </div>
                 </div>
               </el-card>
@@ -286,10 +287,10 @@
                       v-for="(item, key) in articlelist.Politics"
                       :key="key"
                       class="text item"
-                      style="width: 200px"
+                      style="width: 220px"
                     >
-                      <span style="float: left">{{ item.title }}</span>
-                      <span style="float: right">{{ item.creationtime }}</span>
+                      <span style="float: left;text-decoration: underline">{{ item.title }}</span>
+                      <span style="float: right;text-decoration: underline">{{ item.creationtime }}</span>
                     </div>
                   </div>
                 </el-card>
@@ -707,6 +708,16 @@ export default {
           });
         });
     },
+    //从首页文章列表跳转到文章详情页面
+    gotoArticleDet(articleid){
+      var that = this;
+      this.$router.push({
+        name: "ArticleDetails",
+        params: {
+          articleid:articleid
+        },
+      });
+    }
   },
 };
 </script>

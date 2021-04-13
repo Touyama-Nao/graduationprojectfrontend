@@ -122,6 +122,7 @@ export default {
   mounted() {
     var that = this;
     that.checkLogin();
+    that.init();
   },
   methods: {
     //获取登陆状态
