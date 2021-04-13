@@ -61,6 +61,7 @@
                     style="float: right; padding: 3px 0"
                     type="text"
                     v-show="this.userName == this.article.author"
+                    @click="gotoReviseArticle()"
                     >修改编辑</el-button
                   >
                 </el-card>
@@ -140,6 +141,7 @@ export default {
         title: "",
         dynamicTags: [],
       },
+      articleid:"",//文章id
     };
   },
   mounted() {
@@ -175,6 +177,7 @@ export default {
     init() {
       var that = this;
       that.article.articleid = that.$route.params.articleid;
+      that.articleid = that.$route.params.articleid;
       apiTools
         .GetArticleContent(that.article.articleid)
         .then((res) => {
@@ -236,6 +239,18 @@ export default {
         params: {
           account: that.userName,
           password: that.password,
+        },
+      });
+    },
+    //去文章编辑页面
+    gotoReviseArticle() {
+      var that = this;
+      this.$router.push({
+        name: "ReviseArticle",
+        params: {
+          account: that.userName,
+          password: that.password,
+          articleid: that.articleid,
         },
       });
     },

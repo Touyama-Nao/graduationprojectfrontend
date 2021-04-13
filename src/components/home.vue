@@ -232,6 +232,7 @@
                     :key="key"
                     class="text item"
                     style="width: 220px;"
+                    @click="gotoArticleDet(item.articleid)"
                   >
                     <span style="float: left;text-decoration: underline">{{ item.title }}</span>
                     <span style="float: right;text-decoration: underline">{{ item.creationtime }}</span>

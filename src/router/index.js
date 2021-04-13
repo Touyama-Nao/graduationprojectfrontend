@@ -4,6 +4,7 @@ import home from '@/components/home'
 import userpage from '@/components/userpage'
 import editarticle from '@/components/editarticle'
 import articledetails from '@/components/articledetails'
+import revisearticle from '@/components/revisearticle'
 
 Vue.use(Router)
 
@@ -37,5 +38,11 @@ export default new Router({
       component: articledetails
 
     },
+    {
+      //ReviseArticle
+      path: '/revisearticle',
+      name: 'ReviseArticle',
+      component: revisearticle
+    }
   ]
 })
