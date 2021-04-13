@@ -80,6 +80,14 @@
             >+ New Tag</el-button
           >
         </el-form-item>
+        <el-form-item label="文章类别">
+          <el-select v-model="editForm.category" placeholder="请选择文章类别">
+            <el-option label="考研数学" value=1></el-option>
+            <el-option label="考研英语" value=2></el-option>
+            <el-option label="考研政治" value=3></el-option>
+            <el-option label="考研专业课" value=4></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="日期" prop="creationtime">
           <el-date-picker
             type="date"
@@ -128,6 +136,8 @@ export default {
         //标签数据
         dynamicTags: ["标签一", "标签二", "标签三"],
         account: "",
+        //文章分类 1是数学 2是英语 3是政治 4是专业课
+        category:""
       },
       inputVisible: false,
       inputValue: "",

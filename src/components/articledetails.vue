@@ -55,28 +55,41 @@
           <el-main>
             <el-container>
               <el-header style="height: 150px">
-                <el-card class="box-card" style="width: 700px !important">
-                  <div class="text item">标题</div>
+                <el-card class="box-card" style="width: 750px !important">
+                  <div class="text item">{{ this.article.title }}</div>
+                  <el-button style="float: right; padding: 3px 0" type="text" v-show="this.userName == this.article.author">修改编辑</el-button>
                 </el-card>
-                <el-card class="box-card" style="width: 700px !important">
-                  <span class="text item">作者:{{ this.article.author }}</span>
-                  <span class="text item"
+                <el-card class="box-card" style="width: 750px !important">
+                  <span class="text item" style="margin:10px;">作者:{{ this.article.author }}</span>
+                  <span class="text item" style="margin:10px;"
                     >点赞数:{{ this.article.likenum }}</span
                   >
-                  <span class="text item"
-                    >创作时间:{{ this.article.creationtime }}</span
+                  <span class="text item" style="margin:10px;"
+                    >创作时间:{{
+                      this.article.creationtime.split(" ")[0]
+                    }}</span
                   >
-                  <span class="text item"
-                    >标签:{{ this.article.dynamicTags }}</span
-                  >
-                  <span class="text item">评分:{{ this.article.rate }}</span>
+                  <span class="text item" style="margin:10px;">标签:</span>
+                  <el-tag
+                    v-for="tag in this.article.dynamicTags"
+                    :key="tag"
+                    type=""
+                  style="margin:3px;">
+                    {{ tag }}
+                  </el-tag>
+                  <span class="text item" style="margin:10px;">评分:{{ this.article.rate }}</span>
                 </el-card>
               </el-header>
               <el-main
-                ><el-card class="box-card" style="width: 700px !important">
-                  <div class="text item">文章内容</div>
-                </el-card></el-main
-              >
+                ><el-card
+                  class="box-card"
+                  style="width: 750px !important; height: 800px"
+                >
+                  <div
+                    class="text item"
+                    v-html="this.article.content"
+                  ></div> </el-card
+              ></el-main>
               <el-footer>Footer</el-footer>
             </el-container>
           </el-main>
@@ -156,8 +169,28 @@ export default {
         .GetArticleContent(that.article.articleid)
         .then((res) => {
           if (res.result == "success") {
-            that.isLogin = true;
+            console.log(res);
             that.article = res.message;
+            //将标签字符串转化为数组
+            that.article.dynamicTags = that.article.dynamicTags
+              .split("[")[1]
+              .split("]")[0]
+              .split(",");
+            for (let i = 0; i < that.article.dynamicTags.length; i++) {
+              that.article.dynamicTags[i] = that.article.dynamicTags[i]
+                .replace(/[ ]/g, "")
+                .replace(/^\"|\"$/g, "");
+            }
+            //html解码
+            var temp = "";
+            temp = that.article.content.replace(/&amp;/g, "&");
+            temp = temp.replace(/&lt;/g, "<");
+            temp = temp.replace(/&gt;/g, ">");
+            temp = temp.replace(/&nbsp;/g, " ");
+            temp = temp.replace(/&#39;/g, "'");
+            temp = temp.replace(/&quot;/g, '"');
+            that.article.content = temp;
+            console.log(that.article.content);
           } else if (res.result == "failed") {
             that.$message.error({
               showClose: true,
