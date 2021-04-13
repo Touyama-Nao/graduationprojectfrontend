@@ -415,7 +415,7 @@ export default {
       //获取当前用户的文章
       var that = this;
       apiTools
-        .GetArticleList(that.searchUserInfo)
+        .GetUserArticleList(that.searchUserInfo)
         .then((res) => {
           if (res.result == "success") {
             that.userarticle = res.message;
@@ -546,6 +546,7 @@ export default {
       this.$refs[formName].resetFields();
     },
     gotoEdit() {
+      var that = this;
       this.$router.push({
         name: "EditArticle",
         params: {

@@ -105,13 +105,27 @@ export function GetUserInfor(data) {
   })
 }
 
-//获取用户发表的文章列表 GetArticleList
-export function GetArticleList(data) {
-  const url = '/GetArticleList'
+//获取用户发表的文章列表 GetUserArticleList
+export function GetUserArticleList(data) {
+  const url = '/user/GetArticleList'
   return axios.get(url,{
     params:{
         account:data.account,
         password:data.password
+    }
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch((err) => {
+    return Promise.reject(err.data)
+  })
+}
+
+//获取指定类别的文章列表 GetArticleList
+export function GetArticleList(data) {
+  const url = '/GetArticleList'
+  return axios.get(url,{
+    params:{
+      category:data
     }
   }).then((res) => {
     return Promise.resolve(res.data)

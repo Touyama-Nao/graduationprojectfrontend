@@ -7,6 +7,11 @@ import articledetails from '@/components/articledetails'
 
 Vue.use(Router)
 
+const originalPush = Router.prototype.push;
+Router.prototype.push = function (location) {
+    return originalPush.call(this, location).catch(err => err)
+}
+
 export default new Router({
   routes: [
     {

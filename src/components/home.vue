@@ -59,13 +59,32 @@
           <div class="grid-content bg-purple">
             <el-card class="box-card" shadow="always">
               <div slot="header" class="clearfix">
-                <span>卡片名称</span>
+                <span>考研数学</span>
                 <el-button style="float: right; padding: 3px 0" type="text"
-                  >操作按钮</el-button
+                  >更多</el-button
                 >
               </div>
-              <div v-for="o in 4" :key="o" class="text item">
-                {{ "列表内容 " + o }}
+              <!-- 走马灯 -->
+              <div style="display: inline-block; float: left">
+                <div class="block" style="width: 340px">
+                  <el-carousel height="200px">
+                    <el-carousel-item v-for="item in 4" :key="item">
+                      <h3 class="small">{{ item }}</h3>
+                    </el-carousel-item>
+                  </el-carousel>
+                </div>
+              </div>
+              <!-- 走马灯 -->
+              <div style="display: inline-block">
+                <div
+                  v-for="(item, key) in articlelist.mathematics"
+                  :key="key"
+                  class="text item"
+                  style="width: 200px"
+                >
+                  <span style="float: left">{{ item.title }}</span>
+                  <span style="float: right">{{ item.creationtime }}</span>
+                </div>
               </div>
             </el-card>
           </div>
@@ -190,13 +209,32 @@
             <div class="grid-content bg-purple">
               <el-card class="box-card" shadow="always">
                 <div slot="header" class="clearfix">
-                  <span>卡片名称</span>
+                  <span>考研英语</span>
                   <el-button style="float: right; padding: 3px 0" type="text"
-                    >操作按钮</el-button
+                    >更多</el-button
                   >
                 </div>
-                <div v-for="o in 4" :key="o" class="text item">
-                  {{ "列表内容 " + o }}
+                <!-- 走马灯 -->
+                <div style="display: inline-block; float: left">
+                  <div class="block" style="width: 340px">
+                    <el-carousel height="200px">
+                      <el-carousel-item v-for="item in 4" :key="item">
+                        <h3 class="small">{{ item }}</h3>
+                      </el-carousel-item>
+                    </el-carousel>
+                  </div>
+                </div>
+                <!-- 走马灯 -->
+                <div style="display: inline-block">
+                  <div
+                    v-for="(item, key) in articlelist.English"
+                    :key="key"
+                    class="text item"
+                    style="width: 200px"
+                  >
+                    <span style="float: left">{{ item.title }}</span>
+                    <span style="float: right">{{ item.creationtime }}</span>
+                  </div>
                 </div>
               </el-card>
             </div>
@@ -207,9 +245,9 @@
             <div class="grid-content bg-purple">
               <el-card class="box-card" shadow="always">
                 <div slot="header" class="clearfix">
-                  <span>卡片名称</span>
+                  <span>推荐热点</span>
                   <el-button style="float: right; padding: 3px 0" type="text"
-                    >操作按钮</el-button
+                    >更多</el-button
                   >
                 </div>
                 <div v-for="o in 4" :key="o" class="text item">
@@ -227,13 +265,32 @@
               <div class="grid-content bg-purple">
                 <el-card class="box-card" shadow="always">
                   <div slot="header" class="clearfix">
-                    <span>卡片名称</span>
+                    <span>考研政治</span>
                     <el-button style="float: right; padding: 3px 0" type="text"
-                      >操作按钮</el-button
+                      >更多</el-button
                     >
                   </div>
-                  <div v-for="o in 4" :key="o" class="text item">
-                    {{ "列表内容 " + o }}
+                  <!-- 走马灯 -->
+                  <div style="display: inline-block; float: left">
+                    <div class="block" style="width: 340px">
+                      <el-carousel height="200px">
+                        <el-carousel-item v-for="item in 4" :key="item">
+                          <h3 class="small">{{ item }}</h3>
+                        </el-carousel-item>
+                      </el-carousel>
+                    </div>
+                  </div>
+                  <!-- 走马灯 -->
+                  <div style="display: inline-block">
+                    <div
+                      v-for="(item, key) in articlelist.Politics"
+                      :key="key"
+                      class="text item"
+                      style="width: 200px"
+                    >
+                      <span style="float: left">{{ item.title }}</span>
+                      <span style="float: right">{{ item.creationtime }}</span>
+                    </div>
                   </div>
                 </el-card>
               </div>
@@ -246,9 +303,9 @@
               <div class="grid-content bg-purple">
                 <el-card class="box-card" shadow="always">
                   <div slot="header" class="clearfix">
-                    <span>卡片名称</span>
+                    <span>院校推荐</span>
                     <el-button style="float: right; padding: 3px 0" type="text"
-                      >操作按钮</el-button
+                      >更多</el-button
                     >
                   </div>
                   <div v-for="o in 4" :key="o" class="text item">
@@ -269,7 +326,7 @@
                   <div slot="header" class="clearfix">
                     <span>卡片名称</span>
                     <el-button style="float: right; padding: 3px 0" type="text"
-                      >操作按钮</el-button
+                      >更多</el-button
                     >
                   </div>
                   <div v-for="o in 4" :key="o" class="text item">
@@ -288,11 +345,24 @@
                   <div slot="header" class="clearfix">
                     <span>卡片名称</span>
                     <el-button style="float: right; padding: 3px 0" type="text"
-                      >操作按钮</el-button
+                      >更多</el-button
                     >
                   </div>
-                  <div v-for="o in 4" :key="o" class="text item">
-                    {{ "列表内容 " + o }}
+                  <!-- 走马灯 -->
+                  <div style="display: inline-block; float: left">
+                    <div class="block" style="width: 340px">
+                      <el-carousel height="200px">
+                        <el-carousel-item v-for="item in 4" :key="item">
+                          <h3 class="small">{{ item }}</h3>
+                        </el-carousel-item>
+                      </el-carousel>
+                    </div>
+                  </div>
+                  <!-- 走马灯 -->
+                  <div style="display: inline-block">
+                    <div v-for="o in 4" :key="o" class="text item">
+                      {{ "列表内容 " + o }}
+                    </div>
                   </div>
                 </el-card>
               </div>
@@ -376,6 +446,11 @@ export default {
         account: [{ validator: validatePass, trigger: "blur" }],
         password: [{ validator: validatePass2, trigger: "blur" }],
       },
+      articlelist: {
+        Politics: [],
+        mathematics: [],
+        English: [],
+      }, //文章列表
     };
     return {
       msg: "Welcome to Your Vue.js App",
@@ -383,7 +458,8 @@ export default {
   },
   mounted() {
     var that = this;
-    that.checkLogin(); 
+    that.checkLogin();
+    that.GetCatArticleList();
   },
   methods: {
     toUserPage() {
@@ -543,6 +619,93 @@ export default {
           password: this.LoginForm.password,
         },
       });
+    },
+    //获取指定类别的文章列表，用于初始化
+    GetCatArticleList() {
+      var that = this;
+      apiTools
+        .GetArticleList(3)
+        .then((res) => {
+          if (res.result == "success") {
+            that.articlelist.Politics = res.message;
+            for (let i = 0; i < that.articlelist.Politics.length; i++) {
+              that.articlelist.Politics[
+                i
+              ].creationtime = that.articlelist.Politics[i].creationtime.split(
+                " "
+              )[0];
+            }
+          } else if (res.result == "failed") {
+            that.$message.error({
+              showClose: true,
+              message: "政治文章列表数据异常",
+              duration: 2000,
+            });
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "文章列表数据异常",
+            duration: 2000,
+          });
+        });
+
+      apiTools
+        .GetArticleList(2)
+        .then((res) => {
+          if (res.result == "success") {
+            that.articlelist.English = res.message;
+            for (let i = 0; i < that.articlelist.English.length; i++) {
+              that.articlelist.English[
+                i
+              ].creationtime = that.articlelist.English[i].creationtime.split(
+                " "
+              )[0];
+            }
+          } else if (res.result == "failed") {
+            that.$message.error({
+              showClose: true,
+              message: "英语文章列表数据异常",
+              duration: 2000,
+            });
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "文章列表数据异常",
+            duration: 2000,
+          });
+        });
+
+      apiTools
+        .GetArticleList(1)
+        .then((res) => {
+          if (res.result == "success") {
+            that.articlelist.mathematics = res.message;
+            for (let i = 0; i < that.articlelist.mathematics.length; i++) {
+              that.articlelist.mathematics[
+                i
+              ].creationtime = that.articlelist.mathematics[
+                i
+              ].creationtime.split(" ")[0];
+            }
+          } else if (res.result == "failed") {
+            that.$message.error({
+              showClose: true,
+              message: "数学文章列表数据异常",
+              duration: 2000,
+            });
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "文章列表数据异常",
+            duration: 2000,
+          });
+        });
     },
   },
 };
