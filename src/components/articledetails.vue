@@ -57,27 +57,37 @@
               <el-header style="height: 150px">
                 <el-card class="box-card" style="width: 750px !important">
                   <div class="text item">{{ this.article.title }}</div>
-                  <el-button style="float: right; padding: 3px 0" type="text" v-show="this.userName == this.article.author">修改编辑</el-button>
+                  <el-button
+                    style="float: right; padding: 3px 0"
+                    type="text"
+                    v-show="this.userName == this.article.author"
+                    >修改编辑</el-button
+                  >
                 </el-card>
                 <el-card class="box-card" style="width: 750px !important">
-                  <span class="text item" style="margin:10px;">作者:{{ this.article.author }}</span>
-                  <span class="text item" style="margin:10px;"
+                  <span class="text item" style="margin: 10px"
+                    >作者:{{ this.article.author }}</span
+                  >
+                  <span class="text item" style="margin: 10px"
                     >点赞数:{{ this.article.likenum }}</span
                   >
-                  <span class="text item" style="margin:10px;"
+                  <span class="text item" style="margin: 10px"
                     >创作时间:{{
                       this.article.creationtime.split(" ")[0]
                     }}</span
                   >
-                  <span class="text item" style="margin:10px;">标签:</span>
+                  <span class="text item" style="margin: 10px">标签:</span>
                   <el-tag
                     v-for="tag in this.article.dynamicTags"
                     :key="tag"
                     type=""
-                  style="margin:3px;">
+                    style="margin: 3px"
+                  >
                     {{ tag }}
                   </el-tag>
-                  <span class="text item" style="margin:10px;">评分:{{ this.article.rate }}</span>
+                  <span class="text item" style="margin: 10px"
+                    >评分:{{ this.article.rate }}</span
+                  >
                 </el-card>
               </el-header>
               <el-main
@@ -206,6 +216,28 @@ export default {
             duration: 2000,
           });
         });
+    },
+    //跳转回去首页
+    toHomePage() {
+      var that = this;
+      this.$router.push({
+        name: "home",
+        params: {
+          account: that.userName,
+          password: that.password,
+        },
+      });
+    },
+    //去用户主页
+    toUserPage() {
+      var that = this;
+      this.$router.push({
+        name: "UserPage",
+        params: {
+          account: that.userName,
+          password: that.password,
+        },
+      });
     },
   },
 };
