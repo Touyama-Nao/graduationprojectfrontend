@@ -82,16 +82,18 @@
         </el-form-item>
         <el-form-item label="文章类别">
           <el-select v-model="editForm.category" placeholder="请选择文章类别">
-            <el-option label="考研数学" value=1  value-key=1></el-option>
-            <el-option label="考研英语" value=2  value-key=2></el-option>
-            <el-option label="考研政治" value=3  value-key=3></el-option>
-            <el-option label="考研专业课" value=4 value-key=4></el-option>
+            <el-option label="考研数学" value="1" value-key="1"></el-option>
+            <el-option label="考研英语" value="2" value-key="2"></el-option>
+            <el-option label="考研政治" value="3" value-key="3"></el-option>
+            <el-option label="考研专业课" value="4" value-key="4"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="日期" prop="creationtime">
           <el-date-picker
             type="date"
             placeholder="选择日期"
+            format="yyyy-MM-dd"
+            value-format="yyyy-MM-dd"
             v-model="editForm.creationtime"
           ></el-date-picker>
         </el-form-item>
@@ -100,7 +102,7 @@
         </el-form-item>
         <el-form-item>
           <el-button>取消</el-button>
-          <el-button type="primary" @click="editSubmit">提交</el-button>
+          <el-button type="primary" @click="ReviseSubmit()">提交</el-button>
         </el-form-item>
       </el-form>
     </el-container>
@@ -201,7 +203,7 @@ export default {
             // switch(that.article.category){
             //     case 1:that.article.category = "考研数学";break;
             // }
-            console.log(typeof(that.article.category))
+            console.log(typeof that.article.category);
             that.editForm = that.article;
           } else if (res.result == "failed") {
             that.$message.error({
@@ -242,21 +244,28 @@ export default {
           });
         });
     },
-    editSubmit() {
+    ReviseSubmit() {
       var that = this;
       that.editForm.account = that.userName;
       that.editForm.content = that.editForm.content
         .replace(/<\/div>/g, "</p>")
         .replace(/<div/g, "<p"); //此处vue2-editor的v-model无法显示div
       apiTools
-        .PostArticle(that.editForm)
+        .ReviseArticle(that.editForm)
         .then((res) => {
           if (res.result == "success") {
             console.log(res.result);
             that.$message({
               showClose: true,
               type: "success",
-              message: "发表用户文章成功!",
+              message: "修改用户文章成功!",
+            });
+            //修改成功跳转页面
+            this.$router.push({
+              name: "ArticleDetails",
+              params: {
+                articleid: that.editForm.articleid,
+              },
             });
           } else if (res.result == "failed") {
             that.$message({
@@ -268,7 +277,7 @@ export default {
         .catch(function (response) {
           that.$message.error({
             showClose: true,
-            message: "发表用户文章数据异常",
+            message: "修改用户文章数据异常",
             duration: 2000,
           });
         });

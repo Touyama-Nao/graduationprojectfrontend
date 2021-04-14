@@ -146,7 +146,17 @@ export function PostArticle(data) {
   }).then(res => Promise.resolve(res.data)).catch(err => Promise.reject(err.data))
 }
 
-//GetArticleContent
+//修改文章请求
+export function ReviseArticle(data) {
+  const url = "/ReviseArticle"
+  return axios({
+    method: 'post',
+    url: url,
+    data: data,
+  }).then(res => Promise.resolve(res.data)).catch(err => Promise.reject(err.data))
+}
+
+//获取文章详情 GetArticleContent
 export function GetArticleContent(data) {
   const url = '/GetArticleContent'
   return axios.get(url,{
