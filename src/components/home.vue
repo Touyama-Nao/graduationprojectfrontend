@@ -60,7 +60,7 @@
             <el-card class="box-card" shadow="always">
               <div slot="header" class="clearfix">
                 <span>考研数学</span>
-                <el-button style="float: right; padding: 3px 0" type="text"
+                <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(1)"
                   >更多</el-button
                 >
               </div>
@@ -211,7 +211,7 @@
               <el-card class="box-card" shadow="always">
                 <div slot="header" class="clearfix">
                   <span>考研英语</span>
-                  <el-button style="float: right; padding: 3px 0" type="text"
+                  <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(2)"
                     >更多</el-button
                   >
                 </div>
@@ -268,7 +268,7 @@
                 <el-card class="box-card" shadow="always">
                   <div slot="header" class="clearfix">
                     <span>考研政治</span>
-                    <el-button style="float: right; padding: 3px 0" type="text"
+                    <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(3)"
                       >更多</el-button
                     >
                   </div>
@@ -289,6 +289,7 @@
                       :key="key"
                       class="text item"
                       style="width: 220px"
+                      @click="gotoArticleDet(item.articleid)"
                     >
                       <span style="float: left;text-decoration: underline">{{ item.title }}</span>
                       <span style="float: right;text-decoration: underline">{{ item.creationtime }}</span>
@@ -327,7 +328,7 @@
                 <el-card class="box-card" shadow="always">
                   <div slot="header" class="clearfix">
                     <span>卡片名称</span>
-                    <el-button style="float: right; padding: 3px 0" type="text"
+                    <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(1)"
                       >更多</el-button
                     >
                   </div>
@@ -345,8 +346,8 @@
               <div class="grid-content bg-purple">
                 <el-card class="box-card" shadow="always">
                   <div slot="header" class="clearfix">
-                    <span>卡片名称</span>
-                    <el-button style="float: right; padding: 3px 0" type="text"
+                    <span>专业课</span>
+                    <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(4)"
                       >更多</el-button
                     >
                   </div>
@@ -718,7 +719,18 @@ export default {
           articleid:articleid
         },
       });
+    },
+    //跳转到文章列表页面
+    gotoArticleList(category){
+      var that = this;
+      this.$router.push({
+        name: "ArticleList",
+        params: {
+          category:category
+        },
+      });
     }
+
   },
 };
 </script>

@@ -5,6 +5,7 @@ import userpage from '@/components/userpage'
 import editarticle from '@/components/editarticle'
 import articledetails from '@/components/articledetails'
 import revisearticle from '@/components/revisearticle'
+import articlelist from '@/components/articlelist'
 
 Vue.use(Router)
 
@@ -43,6 +44,12 @@ export default new Router({
       path: '/revisearticle',
       name: 'ReviseArticle',
       component: revisearticle
-    }
+    },
+    {
+      //ArticleList 
+      path: '/articlelist',
+      name: 'ArticleList',
+      component: articlelist
+    },
   ]
 })
