@@ -77,10 +77,10 @@
               <!-- 走马灯 -->
               <div style="display: inline-block">
                 <div
-                  v-for="(item, key) in articlelist.mathematics"
+                  v-for="(item, key) in articlelist.mathematics.slice(0,8)"
                   :key="key"
                   class="text item"
-                  style="width: 220px;"
+                  style="width: 220px;height:10px;"
                   @click="gotoArticleDet(item.articleid)"
                 >
                   <span style="float: left;text-decoration: underline">{{ item.title }}</span>
@@ -226,12 +226,12 @@
                   </div>
                 </div>
                 <!-- 走马灯 -->
-                <div style="display: inline-block">
+                <div style="float:right;">
                   <div
-                    v-for="(item, key) in articlelist.English"
+                    v-for="(item, key) in articlelist.English.slice(0,8)"
                     :key="key"
                     class="text item"
-                    style="width: 220px;"
+                    style="width: 220px;height:10px;"
                     @click="gotoArticleDet(item.articleid)"
                   >
                     <span style="float: left;text-decoration: underline">{{ item.title }}</span>
@@ -285,10 +285,10 @@
                   <!-- 走马灯 -->
                   <div style="display: inline-block">
                     <div
-                      v-for="(item, key) in articlelist.Politics"
+                      v-for="(item, key) in articlelist.Politics.slice(0,8)"
                       :key="key"
                       class="text item"
-                      style="width: 220px"
+                      style="width: 220px;height:10px;"
                       @click="gotoArticleDet(item.articleid)"
                     >
                       <span style="float: left;text-decoration: underline">{{ item.title }}</span>
@@ -472,6 +472,7 @@ export default {
         params: {
           account: that.LoginForm.account,
           password: that.LoginForm.password,
+          userid: that.LoginForm.password,
         },
       });
     },
@@ -486,6 +487,7 @@ export default {
             that.userName = res.message.account;
             that.LoginForm.account = res.message.account;
             that.LoginForm.password = res.message.password;
+            that.LoginForm.userid = res.message.userid;
           } else if (res.result == "failed") {
             that.isLogin = false;
             that.userName = "未登录";

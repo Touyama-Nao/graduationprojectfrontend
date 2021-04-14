@@ -196,10 +196,10 @@
                     style="padding: 10px"
                   >
                     <div slot="header" class="clearfix">
-                      <span style="float: left">[{{ item.category }}]</span>
-                      <span style="float: left">{{ item.title }}</span>
+                      <span style="float: left;margin-right:10px;">[{{ item.category }}]</span>
+                      <span style="float: left;margin-top:3px;">{{ item.title }}</span>
                     </div>
-                    <div class="text item">{{ item.briefcontent }}</div>
+                    <div class="text item" v-html="item.briefcontent"></div>
                     <div style="float: left">
                       <time class="time" style="width: 60px"
                         >发布时间:{{ item.creationtime }}</time

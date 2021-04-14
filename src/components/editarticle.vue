@@ -128,6 +128,7 @@ export default {
     return {
       userName: "", //用户姓名
       password: "", //保存用户密码
+      userid: "", //保存用户id
       editForm: {
         //文章内容保存
         content: "",
@@ -171,6 +172,7 @@ export default {
             that.isLogin = true;
             that.userName = res.message.account;
             that.password = res.message.password;
+            that.userid = res.message.userid;
           } else if (res.result == "failed") {
             that.isLogin = false;
             that.userName = "未登录";
@@ -187,6 +189,7 @@ export default {
     editSubmit() {
       var that = this;
       that.editForm.account = that.userName;
+      that.editForm.userid = that.userid;
       that.editForm.content = that.editForm.content
         .replace(/<\/div>/g, "</p>")
         .replace(/<div/g, "<p"); //此处vue2-editor的v-model无法显示div
