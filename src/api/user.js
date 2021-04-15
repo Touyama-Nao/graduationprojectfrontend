@@ -169,3 +169,42 @@ export function GetArticleContent(data) {
     return Promise.reject(err.data)
   })
 }
+
+//获取推荐文章列表 GetHotspotList
+export function GetHotspotList(data) {
+  const url = '/user/GetArticleContent'
+  return axios.get(url,{
+    params:{
+      userid:data
+    }
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch((err) => {
+    return Promise.reject(err.data)
+  })
+}
+
+//获取用户文章对应的评分 GetRate
+export function GetRate(data) {
+  const url = '/user/GetRate'
+  return axios.get(url,{
+    params:{
+      userid:data.userid,
+      articleid:data.articleid
+    }
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch((err) => {
+    return Promise.reject(err.data)
+  })
+}
+
+//发表用户文章评分
+export function PostRate(data) {
+  const url = "/user/PostRate"
+  return axios({
+    method: 'post',
+    url: url,
+    data: data,
+  }).then(res => Promise.resolve(res.data)).catch(err => Promise.reject(err.data))
+}

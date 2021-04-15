@@ -65,6 +65,7 @@
                 :key="key"
                 class="text item"
                 @click="gotoArticleDet(item.articleid)"
+                style="height:12px;"
               >
                 <span style="float: left; text-decoration: underline">{{
                   item.title

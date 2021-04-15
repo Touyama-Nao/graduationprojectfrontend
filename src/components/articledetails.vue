@@ -101,7 +101,27 @@
                     v-html="this.article.content"
                   ></div> </el-card
               ></el-main>
-              <el-footer>Footer</el-footer>
+              <el-footer v-show="this.userid != this.article.userid"
+                ><span class="demonstration" v-show="!isRate">请给文章评分</span>
+                <el-rate v-model="ratevalue_1" show-text v-show="!isRate">
+                </el-rate>
+                <el-rate
+                  v-model="ratevalue_2"
+                  :disabled="isRate"
+                  v-show="isRate"
+                  show-score
+                  text-color="#ff9900"
+                  score-template="{ratevalue_2}"
+                >
+                </el-rate>
+                <el-button
+                  type="primary"
+                  @click="postrate()"
+                  style="width: 200px; display: inline-block"
+                  v-show="!isRate"
+                  >确定</el-button
+                ></el-footer
+              >
             </el-container>
           </el-main>
           <el-footer>暂定评论区</el-footer>
@@ -131,18 +151,48 @@ export default {
       isLogin: false,
       userName: "未登录",
       password: "",
+      userid: "", //保存用户的id
+      ratevalue_1: 0, //文章评分
+      ratevalue_2: 0, //文章评分
+      isRate: false, //文章是否已经评分
+      checkRateForm: {
+        //检查用户是否发布了评分的表格
+        userid: "",
+        articleid: "",
+      },
+      rateForm: {
+        //用户评分表post
+        userid: "",
+        articleid: "",
+        rate: "",
+      },
       article: {
         content: "",
         author: "",
         comnum: 0,
+        userid: "",
         likenum: 0,
         category: 1,
         creationtime: "",
         title: "",
         dynamicTags: [],
       },
-      articleid:"",//文章id
+      articleid: "", //文章id
     };
+  },
+  watch: {
+    userid: {
+      handler(newVal, oldVal) {
+        this.checkIsRate();
+      },
+      deep: true,
+    },
+    isRate: {
+      handler(newVal, oldVal) {
+        this.checkIsRate();
+      },
+      deep: true,
+    },
   },
   mounted() {
     var that = this;
@@ -160,6 +210,7 @@ export default {
             that.isLogin = true;
             that.userName = res.message.account;
             that.password = res.message.password;
+            that.userid = res.message.userid;
           } else if (res.result == "failed") {
             that.isLogin = false;
             that.userName = "未登录";
@@ -215,7 +266,73 @@ export default {
         .catch(function (response) {
           that.$message.error({
             showClose: true,
-            message: "登陆数据异常",
+            message: "获取文章详情数据异常",
+            duration: 2000,
+          });
+        });
+    },
+    //查询用户是否评分
+    checkIsRate() {
+      var that = this;
+      that.checkRateForm.userid = that.userid;
+      that.checkRateForm.articleid = that.article.articleid;
+      apiTools
+        .GetRate(that.checkRateForm)
+        .then((res) => {
+          if (res.result == "success") {
+            that.isRate = true;
+            that.ratevalue_2 = res.message.rate.toString();
+            that.$message.error({
+              showClose: true,
+              message: "用户已经评分!",
+              duration: 2000,
+            });
+          } else if (res.result == "failed") {
+            that.isRate = false;
+            that.$message.error({
+              showClose: true,
+              message: "发用户未评分",
+              duration: 2000,
+            });
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "获取评分数据异常",
+            duration: 2000,
+          });
+        });
+    },
+    //用户发表评分
+    postrate() {
+      var that = this;
+      that.rateForm.rate = that.ratevalue_1;
+      that.rateForm.userid = that.userid;
+      that.rateForm.articleid = that.article.articleid;
+      apiTools
+        .PostRate(that.rateForm)
+        .then((res) => {
+          if (res.result == "success") {
+            that.$message.error({
+              showClose: true,
+              message: "发布评分成功!",
+              duration: 2000,
+            });
+            that.isRate = true;
+          } else if (res.result == "failed") {
+            that.isRate = false;
+            that.$message.error({
+              showClose: true,
+              message: "发布评分失败",
+              duration: 2000,
+            });
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "发布评分数据异常",
             duration: 2000,
           });
         });
