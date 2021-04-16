@@ -16,14 +16,14 @@
           <el-menu-item index="2-1">中山大学</el-menu-item>
           <el-menu-item index="2-2">华南理工大学</el-menu-item>
           <el-menu-item index="2-3">广东工业大学</el-menu-item>
-          <el-submenu index="2-4">
+          <!-- <el-submenu index="2-4">
             <template slot="title">选项4</template>
             <el-menu-item index="2-4-1">选项1</el-menu-item>
             <el-menu-item index="2-4-2">选项2</el-menu-item>
             <el-menu-item index="2-4-3">选项3</el-menu-item>
-          </el-submenu>
+          </el-submenu> -->
         </el-submenu>
-        <el-menu-item index="3">博客</el-menu-item>
+        <!-- <el-menu-item index="3">博客</el-menu-item> -->
         <el-menu-item index="4" :disabled="!isLogin" @click="gotoEdit()"
           >创作中心</el-menu-item
         >
@@ -262,12 +262,23 @@
               <el-card class="box-card" shadow="always">
                 <div slot="header" class="clearfix">
                   <span>推荐热点</span>
-                  <el-button style="float: right; padding: 3px 0" type="text"
+                  <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(5)"
                     >更多</el-button
                   >
                 </div>
-                <div v-for="o in 4" :key="o" class="text item">
-                  {{ "列表内容 " + o }}
+                <div
+                  v-for="(item, key) in articlelist.HotspotList.slice(0, 8)"
+                  :key="key"
+                  class="text item"
+                  style="width: 220px; height: 10px"
+                  @click="gotoArticleDet(item.articleid)"
+                >
+                  <span style="float: left; text-decoration: underline">{{
+                    item.title
+                  }}</span>
+                  <span style="float: right; text-decoration: underline">{{
+                    item.creationtime
+                  }}</span>
                 </div>
               </el-card>
             </div>
@@ -327,69 +338,12 @@
               <div class="grid-content bg-purple">
                 <el-card class="box-card" shadow="always">
                   <div slot="header" class="clearfix">
-                    <span>院校推荐</span>
-                    <el-button style="float: right; padding: 3px 0" type="text"
-                      >更多</el-button
-                    >
-                  </div>
-                  <div v-for="o in 4" :key="o" class="text item">
-                    {{ "列表内容 " + o }}
-                  </div>
-                </el-card>
-              </div>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="7" :offset="3">
-          <div class="grid-content bg-purple">
-            <div class="grid-content bg-purple-light">
-              <div class="grid-content bg-purple">
-                <el-card class="box-card" shadow="always">
-                  <div slot="header" class="clearfix">
-                    <span>卡片名称</span>
-                    <el-button
-                      style="float: right; padding: 3px 0"
-                      type="text"
-                      @click="gotoArticleList(1)"
-                      >更多</el-button
-                    >
-                  </div>
-                  <div v-for="o in 4" :key="o" class="text item">
-                    {{ "列表内容 " + o }}
-                  </div>
-                </el-card>
-              </div>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="11">
-          <div class="grid-content bg-purple-light">
-            <div class="grid-content bg-purple-light">
-              <div class="grid-content bg-purple">
-                <el-card class="box-card" shadow="always">
-                  <div slot="header" class="clearfix">
                     <span>专业课</span>
-                    <el-button
-                      style="float: right; padding: 3px 0"
-                      type="text"
-                      @click="gotoArticleList(4)"
+                    <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(4)"
                       >更多</el-button
                     >
                   </div>
-                  <!-- 走马灯 -->
-                  <div style="display: inline-block; float: left">
-                    <div class="block" style="width: 340px">
-                      <el-carousel height="200px">
-                        <el-carousel-item v-for="item in 4" :key="item">
-                          <h3 class="small">{{ item }}</h3>
-                        </el-carousel-item>
-                      </el-carousel>
-                    </div>
-                  </div>
-                  <!-- 走马灯 -->
-                  <div style="display: inline-block">
+                 <div style="display: inline-block">
                     <div
                       v-for="(
                         item, key
@@ -413,6 +367,54 @@
           </div>
         </el-col>
       </el-row>
+      <!-- <el-row :gutter="20">
+        <el-col :span="7" :offset="3">
+          <div class="grid-content bg-purple">
+            <div class="grid-content bg-purple-light">
+              <div class="grid-content bg-purple">
+                <el-card class="box-card" shadow="always">
+                  <div slot="header" class="clearfix">
+                    <span>卡片名称</span>
+                    <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(1)">更多</el-button>
+                  </div>
+                  <div v-for="o in 4" :key="o" class="text item">
+                    {{ "列表内容 " + o }}
+                  </div>
+                </el-card>
+              </div>
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="11">
+          <div class="grid-content bg-purple-light">
+            <div class="grid-content bg-purple-light">
+              <div class="grid-content bg-purple">
+                <el-card class="box-card" shadow="always">
+                  <div slot="header" class="clearfix">
+                    <span>专业课</span>
+                    <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(4)">更多</el-button>
+                  </div>
+                  <div style="display: inline-block; float: left">
+                    <div class="block" style="width: 340px">
+                      <el-carousel height="200px">
+                        <el-carousel-item v-for="item in 4" :key="item">
+                          <h3 class="small">{{ item }}</h3>
+                        </el-carousel-item>
+                      </el-carousel>
+                    </div>
+                  </div>
+                  <div style="display: inline-block">
+                    <div v-for="(item, key) in articlelist.ProfessionalCourses.slice(0, 8)" :key="key" class="text item" style="width: 220px; height: 10px" @click="gotoArticleDet(item.articleid)">
+                      <span style="float: left; text-decoration: underline">{{item.title}}</span>
+                      <span style="float: right; text-decoration: underline">{{item.creationtime}}</span>
+                    </div>
+                  </div>
+                </el-card>
+              </div>
+            </div>
+          </div>
+        </el-col>
+      </el-row> -->
     </div>
     <!-- 首页内容结束 -->
   </div>
@@ -475,7 +477,7 @@ export default {
     };
     return {
       userName: "未登录",
-      userid:"", //保存用户id
+      userid: "", //保存用户id
       loginShow: true,
       isLogin: false,
       LoginForm: {
@@ -802,6 +804,12 @@ export default {
         .then((res) => {
           if (res.result == "success") {
             that.articlelist.HotspotList = res.message;
+            //遍历推荐列表返回值对象，将对象转换为数组
+            var HSLArr = [];
+            for (let i in that.articlelist.HotspotList) {
+              HSLArr.push(that.articlelist.HotspotList[i]); //属性
+            }
+            that.articlelist.HotspotList = HSLArr;
             for (let i = 0; i < that.articlelist.HotspotList.length; i++) {
               that.articlelist.HotspotList[
                 i
@@ -842,6 +850,7 @@ export default {
         name: "ArticleList",
         params: {
           category: category,
+          userid: that.userid
         },
       });
     },

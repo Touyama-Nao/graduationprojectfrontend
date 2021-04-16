@@ -235,7 +235,6 @@ export default {
         .GetArticleContent(that.article.articleid)
         .then((res) => {
           if (res.result == "success") {
-            console.log(res);
             that.article = res.message;
             //将标签字符串转化为数组
             that.article.dynamicTags = that.article.dynamicTags
@@ -256,7 +255,6 @@ export default {
             temp = temp.replace(/&#39;/g, "'");
             temp = temp.replace(/&quot;/g, '"');
             that.article.content = temp;
-            console.log(that.article.content);
           } else if (res.result == "failed") {
             that.$message.error({
               showClose: true,
@@ -286,11 +284,11 @@ export default {
             that.ratevalue_2 = parseInt(res.message.rate);
           } else if (res.result == "failed") {
             that.isRate = false;
-            that.$message.error({
-              showClose: true,
-              message: "发用户未评分",
-              duration: 2000,
-            });
+            // that.$message.error({
+            //   showClose: true,
+            //   message: "发用户未评分",
+            //   duration: 2000,
+            // });
           }
         })
         .catch(function (response) {
@@ -311,7 +309,7 @@ export default {
         .PostRate(that.rateForm)
         .then((res) => {
           if (res.result == "success") {
-            that.$message.error({
+            that.$message.success({
               showClose: true,
               message: "发布评分成功!",
               duration: 2000,

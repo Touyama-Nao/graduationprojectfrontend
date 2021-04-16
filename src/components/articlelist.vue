@@ -65,7 +65,7 @@
                 :key="key"
                 class="text item"
                 @click="gotoArticleDet(item.articleid)"
-                style="height:12px;"
+                style="height: 12px"
               >
                 <span style="float: left; text-decoration: underline">{{
                   item.title
@@ -102,6 +102,7 @@ export default {
     return {
       isLogin: false,
       userName: "未登录",
+      userid:"",
       password: "",
       //存放文章列表
       articlelist: {
@@ -149,6 +150,7 @@ export default {
     init() {
       var that = this;
       var categoryId = that.$route.params.category;
+      that.userid = that.$route.params.userid;
       switch (categoryId) {
         case 1:
           that.articlelist.categoryName = "考研数学";
@@ -162,32 +164,74 @@ export default {
         case 4:
           that.articlelist.categoryName = "考研专业课";
           break;
+        case 5:
+          that.articlelist.categoryName = "推荐文章列表";
+          break;
       }
-      apiTools
-        .GetArticleList(categoryId)
-        .then((res) => {
-          if (res.result == "success") {
-            that.articlelist.list = res.message;
-            for (let i = 0; i < that.articlelist.list.length; i++) {
-              that.articlelist.list[i].creationtime = that.articlelist.list[
-                i
-              ].creationtime.split(" ")[0];
+      if (
+        categoryId == 1 ||
+        categoryId == 2 ||
+        categoryId == 3 ||
+        categoryId == 4
+      ) {
+        apiTools
+          .GetArticleList(categoryId)
+          .then((res) => {
+            if (res.result == "success") {
+              that.articlelist.list = res.message;
+              for (let i = 0; i < that.articlelist.list.length; i++) {
+                that.articlelist.list[i].creationtime = that.articlelist.list[
+                  i
+                ].creationtime.split(" ")[0];
+              }
+            } else if (res.result == "failed") {
+              that.$message.error({
+                showClose: true,
+                message: "文章列表数据异常",
+                duration: 2000,
+              });
             }
-          } else if (res.result == "failed") {
+          })
+          .catch(function (response) {
             that.$message.error({
               showClose: true,
               message: "文章列表数据异常",
               duration: 2000,
             });
-          }
-        })
-        .catch(function (response) {
-          that.$message.error({
-            showClose: true,
-            message: "文章列表数据异常",
-            duration: 2000,
           });
-        });
+      } else if (categoryId == 5) {
+        apiTools
+          .GetHotspotList(that.userid)
+          .then((res) => {
+            if (res.result == "success") {
+              var val = res.message;
+              //遍历推荐列表返回值对象，将对象转换为数组
+              var HSLArr = [];
+              for (let i in val) {
+                HSLArr.push(val[i]); //属性
+              }
+              that.articlelist.list = HSLArr;
+              for (let i = 0; i < that.articlelist.list.length; i++) {
+                that.articlelist.list[i].creationtime = that.articlelist.list[
+                  i
+                ].creationtime.split(" ")[0];
+              }
+            } else if (res.result == "failed") {
+              that.$message.error({
+                showClose: true,
+                message: "获取推荐文章列表失败",
+                duration: 2000,
+              });
+            }
+          })
+          .catch(function (response) {
+            that.$message.error({
+              showClose: true,
+              message: "文章列表数据异常",
+              duration: 2000,
+            });
+          });
+      }
     },
     //跳转文章详情页面
     gotoArticleDet(articleid) {
