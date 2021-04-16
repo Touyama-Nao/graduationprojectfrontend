@@ -102,16 +102,18 @@
                   ></div> </el-card
               ></el-main>
               <el-footer v-show="this.userid != this.article.userid"
-                ><span class="demonstration" v-show="!isRate">请给文章评分</span>
-                <el-rate v-model="ratevalue_1" show-text v-show="!isRate">
+                ><span class="demonstration" style="display:inline-block;" v-show="!isRate">请给文章评分:</span>
+                <el-rate v-model="ratevalue_1" style="display:inline-block;" show-text v-show="!isRate">
                 </el-rate>
+                <span class="demonstration" style="display:inline-block;" v-show="isRate">文章评分:</span>
                 <el-rate
                   v-model="ratevalue_2"
                   :disabled="isRate"
                   v-show="isRate"
                   show-score
                   text-color="#ff9900"
-                  score-template="{ratevalue_2}"
+                  score-template="{value}"
+                  style="display:inline-block;"
                 >
                 </el-rate>
                 <el-button
@@ -153,7 +155,7 @@ export default {
       password: "",
       userid: "", //保存用户的id
       ratevalue_1: 0, //文章评分
-      ratevalue_2: 0, //文章评分
+      ratevalue_2: 1, //文章评分
       isRate: false, //文章是否已经评分
       checkRateForm: {
         //检查用户是否发布了评分的表格
@@ -281,12 +283,7 @@ export default {
         .then((res) => {
           if (res.result == "success") {
             that.isRate = true;
-            that.ratevalue_2 = res.message.rate.toString();
-            that.$message.error({
-              showClose: true,
-              message: "用户已经评分!",
-              duration: 2000,
-            });
+            that.ratevalue_2 = parseInt(res.message.rate);
           } else if (res.result == "failed") {
             that.isRate = false;
             that.$message.error({

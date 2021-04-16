@@ -60,7 +60,10 @@
             <el-card class="box-card" shadow="always">
               <div slot="header" class="clearfix">
                 <span>考研数学</span>
-                <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(1)"
+                <el-button
+                  style="float: right; padding: 3px 0"
+                  type="text"
+                  @click="gotoArticleList(1)"
                   >更多</el-button
                 >
               </div>
@@ -77,14 +80,18 @@
               <!-- 走马灯 -->
               <div style="display: inline-block">
                 <div
-                  v-for="(item, key) in articlelist.mathematics.slice(0,8)"
+                  v-for="(item, key) in articlelist.mathematics.slice(0, 8)"
                   :key="key"
                   class="text item"
-                  style="width: 220px;height:10px;"
+                  style="width: 220px; height: 10px"
                   @click="gotoArticleDet(item.articleid)"
                 >
-                  <span style="float: left;text-decoration: underline">{{ item.title }}</span>
-                  <span style="float: right;text-decoration: underline">{{ item.creationtime }}</span>
+                  <span style="float: left; text-decoration: underline">{{
+                    item.title
+                  }}</span>
+                  <span style="float: right; text-decoration: underline">{{
+                    item.creationtime
+                  }}</span>
                 </div>
               </div>
             </el-card>
@@ -211,7 +218,10 @@
               <el-card class="box-card" shadow="always">
                 <div slot="header" class="clearfix">
                   <span>考研英语</span>
-                  <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(2)"
+                  <el-button
+                    style="float: right; padding: 3px 0"
+                    type="text"
+                    @click="gotoArticleList(2)"
                     >更多</el-button
                   >
                 </div>
@@ -226,16 +236,20 @@
                   </div>
                 </div>
                 <!-- 走马灯 -->
-                <div style="float:right;">
+                <div style="float: right">
                   <div
-                    v-for="(item, key) in articlelist.English.slice(0,8)"
+                    v-for="(item, key) in articlelist.English.slice(0, 8)"
                     :key="key"
                     class="text item"
-                    style="width: 220px;height:10px;"
+                    style="width: 220px; height: 10px"
                     @click="gotoArticleDet(item.articleid)"
                   >
-                    <span style="float: left;text-decoration: underline">{{ item.title }}</span>
-                    <span style="float: right;text-decoration: underline">{{ item.creationtime }}</span>
+                    <span style="float: left; text-decoration: underline">{{
+                      item.title
+                    }}</span>
+                    <span style="float: right; text-decoration: underline">{{
+                      item.creationtime
+                    }}</span>
                   </div>
                 </div>
               </el-card>
@@ -268,7 +282,10 @@
                 <el-card class="box-card" shadow="always">
                   <div slot="header" class="clearfix">
                     <span>考研政治</span>
-                    <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(3)"
+                    <el-button
+                      style="float: right; padding: 3px 0"
+                      type="text"
+                      @click="gotoArticleList(3)"
                       >更多</el-button
                     >
                   </div>
@@ -285,14 +302,18 @@
                   <!-- 走马灯 -->
                   <div style="display: inline-block">
                     <div
-                      v-for="(item, key) in articlelist.Politics.slice(0,8)"
+                      v-for="(item, key) in articlelist.Politics.slice(0, 8)"
                       :key="key"
                       class="text item"
-                      style="width: 220px;height:10px;"
+                      style="width: 220px; height: 10px"
                       @click="gotoArticleDet(item.articleid)"
                     >
-                      <span style="float: left;text-decoration: underline">{{ item.title }}</span>
-                      <span style="float: right;text-decoration: underline">{{ item.creationtime }}</span>
+                      <span style="float: left; text-decoration: underline">{{
+                        item.title
+                      }}</span>
+                      <span style="float: right; text-decoration: underline">{{
+                        item.creationtime
+                      }}</span>
                     </div>
                   </div>
                 </el-card>
@@ -328,7 +349,10 @@
                 <el-card class="box-card" shadow="always">
                   <div slot="header" class="clearfix">
                     <span>卡片名称</span>
-                    <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(1)"
+                    <el-button
+                      style="float: right; padding: 3px 0"
+                      type="text"
+                      @click="gotoArticleList(1)"
                       >更多</el-button
                     >
                   </div>
@@ -347,7 +371,10 @@
                 <el-card class="box-card" shadow="always">
                   <div slot="header" class="clearfix">
                     <span>专业课</span>
-                    <el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticleList(4)"
+                    <el-button
+                      style="float: right; padding: 3px 0"
+                      type="text"
+                      @click="gotoArticleList(4)"
                       >更多</el-button
                     >
                   </div>
@@ -363,8 +390,21 @@
                   </div>
                   <!-- 走马灯 -->
                   <div style="display: inline-block">
-                    <div v-for="o in 4" :key="o" class="text item">
-                      {{ "列表内容 " + o }}
+                    <div
+                      v-for="(
+                        item, key
+                      ) in articlelist.ProfessionalCourses.slice(0, 8)"
+                      :key="key"
+                      class="text item"
+                      style="width: 220px; height: 10px"
+                      @click="gotoArticleDet(item.articleid)"
+                    >
+                      <span style="float: left; text-decoration: underline">{{
+                        item.title
+                      }}</span>
+                      <span style="float: right; text-decoration: underline">{{
+                        item.creationtime
+                      }}</span>
                     </div>
                   </div>
                 </el-card>
@@ -435,6 +475,7 @@ export default {
     };
     return {
       userName: "未登录",
+      userid:"", //保存用户id
       loginShow: true,
       isLogin: false,
       LoginForm: {
@@ -453,11 +494,19 @@ export default {
         Politics: [],
         mathematics: [],
         English: [],
+        ProfessionalCourses: [],
+        HotspotList: [],
       }, //文章列表
     };
-    return {
-      msg: "Welcome to Your Vue.js App",
-    };
+  },
+  //获得userid之后发送推荐列表请求
+  watch: {
+    userid: {
+      handler(newVal, oldVal) {
+        this.GetHotSpots();
+      },
+      deep: true,
+    },
   },
   mounted() {
     var that = this;
@@ -488,6 +537,7 @@ export default {
             that.LoginForm.account = res.message.account;
             that.LoginForm.password = res.message.password;
             that.LoginForm.userid = res.message.userid;
+            that.userid = res.message.userid;
           } else if (res.result == "failed") {
             that.isLogin = false;
             that.userName = "未登录";
@@ -711,28 +761,90 @@ export default {
             duration: 2000,
           });
         });
+
+      apiTools
+        .GetArticleList(4)
+        .then((res) => {
+          if (res.result == "success") {
+            that.articlelist.ProfessionalCourses = res.message;
+            for (
+              let i = 0;
+              i < that.articlelist.ProfessionalCourses.length;
+              i++
+            ) {
+              that.articlelist.ProfessionalCourses[
+                i
+              ].creationtime = that.articlelist.ProfessionalCourses[
+                i
+              ].creationtime.split(" ")[0];
+            }
+          } else if (res.result == "failed") {
+            that.$message.error({
+              showClose: true,
+              message: "专业课文章列表数据异常",
+              duration: 2000,
+            });
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "专业课文章列表数据异常",
+            duration: 2000,
+          });
+        });
+    },
+    //获取推荐文章列表 GetHotspotList
+    GetHotSpots() {
+      var that = this;
+      apiTools
+        .GetHotspotList(that.userid)
+        .then((res) => {
+          if (res.result == "success") {
+            that.articlelist.HotspotList = res.message;
+            for (let i = 0; i < that.articlelist.HotspotList.length; i++) {
+              that.articlelist.HotspotList[
+                i
+              ].creationtime = that.articlelist.HotspotList[
+                i
+              ].creationtime.split(" ")[0];
+            }
+          } else if (res.result == "failed") {
+            that.$message.error({
+              showClose: true,
+              message: "获取推荐文章列表失败",
+              duration: 2000,
+            });
+          }
+        })
+        .catch(function (response) {
+          that.$message.error({
+            showClose: true,
+            message: "文章列表数据异常",
+            duration: 2000,
+          });
+        });
     },
     //从首页文章列表跳转到文章详情页面
-    gotoArticleDet(articleid){
+    gotoArticleDet(articleid) {
       var that = this;
       this.$router.push({
         name: "ArticleDetails",
         params: {
-          articleid:articleid
+          articleid: articleid,
         },
       });
     },
     //跳转到文章列表页面
-    gotoArticleList(category){
+    gotoArticleList(category) {
       var that = this;
       this.$router.push({
         name: "ArticleList",
         params: {
-          category:category
+          category: category,
         },
       });
-    }
-
+    },
   },
 };
 </script>

@@ -172,7 +172,7 @@ export function GetArticleContent(data) {
 
 //获取推荐文章列表 GetHotspotList
 export function GetHotspotList(data) {
-  const url = '/user/GetArticleContent'
+  const url = '/user/GetHotspotList'
   return axios.get(url,{
     params:{
       userid:data
